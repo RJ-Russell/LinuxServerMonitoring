@@ -15,10 +15,14 @@
     $(function() {
       socket.on('hostname', function(data) {
         $('#host').html(data.hostname);
+        $('#info').html(
+          data.arch + ' ' + data.rel + ' ' + data.plat
+        );
       });
     });
   </script>
   <body>
     <div id="host"></div>
+    <div id="info"></div>
   </body>
 </html>

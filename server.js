@@ -10,12 +10,10 @@ var io = socketio(server.listen(process.env.PORT || 8080));
 
 io.on('connection', function() {
   io.emit('hostname', {
-    hostname: os.hostname()
+    hostname: os.hostname(),
+    arch: os.arch(),
+    plat: os.platform(),
+    rel: os.release()
   });
 });
 
-
-
-
-
-server.listen('port');
