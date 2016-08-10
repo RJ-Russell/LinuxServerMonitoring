@@ -10,19 +10,29 @@
 
     <script type="text/javascript" src="http://localhost:8080/socket.io/socket.io.js"></script>
   </head>
+  <body>
+    <div id='host'></div>
+    <div id='info'></div>
+    <div id='dynamic'></div>
+
   <script type="text/javascript">
     var socket = io.connect('http://localhost:8080/');
-    $(function() {
-      socket.on('hostname', function(data) {
+    (function() {
+      socket.on('hostData', function(data) {
         $('#host').html(data.hostname);
         $('#info').html(
-          data.arch + ' ' + data.rel + ' ' + data.plat
+          data.arch + ' ' + data.rel + ' ' + data.plat + ' ' + data.type +
+            ' ' + data.user.username
         );
       });
-    });
+
+      socket.on('dynamicData', function(data) {
+        $('#dynamic').html(
+          data.uptime + ' ' + data.freemem + ' ' + data.totalmem + ' ' +
+            data.cpu + ' ' + data.load + ' ' + data.net
+        );
+      });
+    })();
   </script>
-  <body>
-    <div id="host"></div>
-    <div id="info"></div>
   </body>
 </html>

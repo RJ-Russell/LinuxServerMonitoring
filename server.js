@@ -9,11 +9,24 @@ server.use('/', express.static(__dirname + '/'));
 var io = socketio(server.listen(process.env.PORT || 8080));
 
 io.on('connection', function() {
-  io.emit('hostname', {
+  io.emit('hostData', {
     hostname: os.hostname(),
     arch: os.arch(),
+    type: os.type(),
     plat: os.platform(),
-    rel: os.release()
+    rel: os.release(),
+    user: os.userInfo()
   });
+
+  setInterval(function() {
+    io.emit('dynamicData', {
+      cpu: os.cpus(),
+      freemem: os.freemem(),
+      load: os.loadavg(),
+      net: os.networkInterfaces(),
+      totalmem: os.totalmem(),
+      uptime: os.uptime()
+    });
+  }, 1000);
 });
 
