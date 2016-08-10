@@ -7,32 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-
     <script type="text/javascript" src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   </head>
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav nav-pills">
+          <li class="active"><a href='#'>thing</a></li>
+          <li><a href='#'>another thing</a></li>
+          <li><a href='#'>last thing</a></li>
+        </ul>
+      </div>
+    </nav>
     <div id='host'></div>
     <div id='info'></div>
     <div id='dynamic'></div>
 
-  <script type="text/javascript">
-    var socket = io.connect('http://localhost:8080/');
-    (function() {
-      socket.on('hostData', function(data) {
-        $('#host').html(data.hostname);
-        $('#info').html(
-          data.arch + ' ' + data.rel + ' ' + data.plat + ' ' + data.type +
-            ' ' + data.user.username
-        );
-      });
+    <script type="text/javascript">
+      var socket = io.connect('http://localhost:8080/');
+      (function() {
+        socket.on('hostData', function(data) {
+          $('#host').html(data.hostname);
+          $('#info').html(
+            data.arch + ' ' + data.rel + ' ' + data.plat + ' ' + data.type +
+              ' ' + data.user.username
+          );
+        });
 
-      socket.on('dynamicData', function(data) {
-        $('#dynamic').html(
-          data.uptime + ' ' + data.freemem + ' ' + data.totalmem + ' ' +
-            data.cpu + ' ' + data.load + ' ' + data.net
-        );
-      });
-    })();
-  </script>
+        socket.on('dynamicData', function(data) {
+          $('#dynamic').html(
+            data.uptime + ' ' + data.freemem + ' ' + data.totalmem + ' ' +
+              data.cpu + ' ' + data.load + ' ' + data.net
+          );
+        });
+      })();
+    </script>
   </body>
 </html>

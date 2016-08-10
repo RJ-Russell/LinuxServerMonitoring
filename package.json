@@ -1,0 +1,23 @@
+{
+  "name": "system-information",
+  "version": "1.0.0",
+  "description": "Real-time system information",
+  "main": "index.html",
+  "dependencies": {
+    "express": "^4.14.0",
+    "node": "^0.0.0",
+    "os": "^0.1.1",
+    "socketio": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "vader:/git/PSU/11_Summer2016/WebDev/project.git"
+  },
+  "author": "RJ Russell",
+  "license": "MIT"
+}
