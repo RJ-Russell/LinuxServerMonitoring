@@ -5,7 +5,7 @@
   "main": "index.html",
   "dependencies": {
     "express": "^4.14.0",
-    "node": "^0.0.0",
+    "node": "0.0.0",
     "os": "^0.1.1",
     "socketio": "^1.0.0"
   },
