@@ -17,7 +17,8 @@ io.on('connection', function() {
     rel: os.release(),
     user: os.userInfo()
   });
-
+  
+  var uptime = os.uptime()
   setInterval(function() {
     io.emit('dynamicData', {
       cpu: os.cpus(),
@@ -25,8 +26,21 @@ io.on('connection', function() {
       load: os.loadavg(),
       net: os.networkInterfaces(),
       totalmem: os.totalmem(),
-      uptime: os.uptime()
+      uptime: time(os.uptime())
     });
   }, 1000);
 });
+
+var time = function(timeSeconds) {
+  var date = new Date(timeSeconds * 1000);
+  var h = date.getUTCHours();
+  var m = date.getUTCMinutes();
+  var s = date.getSeconds();
+
+  if(h < 10) { h = "0"+h; }
+  if(m < 10) { m = "0"+m; }
+  if(s < 10) { s = "0"+s; }
+
+  return h + ":" + m + ":" + s;
+};
 

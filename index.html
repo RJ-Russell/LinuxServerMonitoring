@@ -25,24 +25,27 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="http://localhost:8080/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-      var socket = io.connect('http://localhost:8080/');
-      (function() {
-        socket.on('hostData', function(data) {
-          $('#host').html(data.hostname);
-          $('#info').html(
-            data.arch + ' ' + data.rel + ' ' + data.plat + ' ' + data.type +
-              ' ' + data.user.username
-          );
-        });
 
-        socket.on('dynamicData', function(data) {
-          $('#dynamic').html(
-            data.uptime + ' ' + data.freemem + ' ' + data.totalmem + ' ' +
-              data.cpu + ' ' + data.load + ' ' + data.net
-          );
-        });
-      })();
-    </script>
+  <script type="text/javascript">
+    var socket = io.connect('http://localhost:8080/');
+    (function() {
+      socket.on('hostData', function(data) {
+        $('#host').html(data.hostname);
+        $('#info').html(
+          'architecture ' + data.arch + ' release ' + data.rel +
+            ' platform ' + data.plat + ' type ' + data.type +
+            ' username ' + data.user.username
+        );
+      });
+
+      socket.on('dynamicData', function(data) {
+        $('#dynamic').html(
+          'uptime ' + data.uptime + ' free memory ' + data.freemem +
+            ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
+            ' load ' + data.load + ' network' + data.net
+        );
+      });
+    })();
+  </script>
   </body>
 </html>
