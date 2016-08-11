@@ -9,13 +9,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
       <div class="container">
-        <ul class="nav nav-pills">
-          <li class="active"><a href='#'>thing</a></li>
-          <li><a href='#'>another thing</a></li>
-          <li><a href='#'>last thing</a></li>
-        </ul>
+        <div class="nav-brand"></div>
       </div>
     </nav>
     <div id='host'></div>
@@ -26,26 +22,26 @@
     <script type="text/javascript" src="http://localhost:8080/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript">
-    var socket = io.connect('http://localhost:8080/');
-    (function() {
-      socket.on('hostData', function(data) {
-        $('#host').html(data.hostname);
-        $('#info').html(
-          'architecture ' + data.arch + ' release ' + data.rel +
-            ' platform ' + data.plat + ' type ' + data.type +
-            ' username ' + data.user.username
-        );
-      });
+    <script type="text/javascript">
+      (function() {
+        var socket = io.connect('http://localhost:8080/');
+        socket.on('hostData', function(data) {
+          $('.nav-brand').html(data.hostname);
+          $('#info').html(
+            'architecture ' + data.arch + ' release ' + data.rel +
+              ' platform ' + data.plat + ' type ' + data.type +
+              ' username ' + data.user.username
+          );
+        });
 
-      socket.on('dynamicData', function(data) {
-        $('#dynamic').html(
-          'uptime ' + data.uptime + ' free memory ' + data.freemem +
-            ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
-            ' load ' + data.load + ' network' + data.net
-        );
-      });
-    })();
+        socket.on('dynamicData', function(data) {
+          $('#dynamic').html(
+            'uptime ' + data.uptime + ' free memory ' + data.freemem +
+              ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
+              ' load ' + data.load + ' network' + data.net
+          );
+        });
+      })();
   </script>
   </body>
 </html>
