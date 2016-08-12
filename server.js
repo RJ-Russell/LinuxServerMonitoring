@@ -9,6 +9,26 @@ var server = express();
 server.use('/', express.static(__dirname + '/'));
 var io = socketio(server.listen(process.env.PORT || 8080));
 
+si.getStaticData()
+  .then(data => {
+    console.log('STATIC DATA');
+    console.log(data);
+  });
+
+si.getDynamicData()
+  .then(data => {
+    console.log();
+    console.log('DYNAMNIC DATA');
+    console.log(data);
+  });
+
+si.getAllData()
+  .then(data => {
+    console.log();
+    console.log('ALL DATA');
+    console.log(data);
+  });
+
 io.on('connection', function() {
   io.emit('hostData', {
     hostname: os.hostname(),
