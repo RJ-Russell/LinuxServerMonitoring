@@ -17,7 +17,7 @@ io.on('connection', function() {
     rel: os.release(),
     user: os.userInfo()
   });
-  
+
   var uptime = os.uptime()
   setInterval(function() {
     io.emit('dynamicData', {
