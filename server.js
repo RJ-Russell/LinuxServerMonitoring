@@ -29,6 +29,12 @@ si.getAllData()
     console.log(data);
   });
 
+var sendError = function(event, error) {
+  io.emit(event, {
+    err: error
+  });
+}
+
 io.on('connection', function() {
   io.emit('hostData', {
     hostname: os.hostname(),
@@ -49,9 +55,7 @@ io.on('connection', function() {
       });
     })
     .catch(error => {
-      io.emit('cpu', {
-        err: error
-      });
+      sendError('cpu', error);
     });
 
   si.osInfo()
@@ -68,9 +72,7 @@ io.on('connection', function() {
       });
     })
     .catch(error => {
-      io.emit('os', {
-        err: error
-      });
+      sendError('os', error);
     });
 
   setInterval(function() {
