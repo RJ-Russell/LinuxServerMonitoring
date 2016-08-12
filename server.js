@@ -3,10 +3,12 @@
 var express = require('express');
 var socketio = require('socket.io');
 var os = require('os');
+var si = require('systeminformation');
 
 var server = express();
 server.use('/', express.static(__dirname + '/'));
 var io = socketio(server.listen(process.env.PORT || 8080));
+
 
 io.on('connection', function() {
   io.emit('hostData', {
@@ -17,18 +19,25 @@ io.on('connection', function() {
     rel: os.release(),
     user: os.userInfo()
   });
+  si.cpu()
+    .then(cpu =>
+      io.emit('cpu', {
+        man: cpu.manufacturer,
+        brand: cpu.brand,
+        speed: cpu.speed,
+        cores: cpu.cores
+      }));
 
-  var uptime = os.uptime()
-  setInterval(function() {
-    io.emit('dynamicData', {
-      cpu: os.cpus(),
-      freemem: os.freemem(),
-      load: os.loadavg(),
-      net: os.networkInterfaces(),
-      totalmem: os.totalmem(),
-      uptime: time(os.uptime())
-    });
-  }, 1000);
+    var uptime = os.uptime()
+    setInterval(function() {
+      //{
+      //  freemem: os.freemem(),
+      //  load: os.loadavg(),
+      //  net: os.networkInterfaces(),
+      //  totalmem: os.totalmem(),
+      //  uptime: os.uptime()
+      //});
+    }, 1000);
 });
 
 var time = function(timeSeconds) {

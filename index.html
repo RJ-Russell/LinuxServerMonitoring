@@ -48,6 +48,11 @@
                 <div id='rel'>Release: </div>
               </div>
             </div>
+            <div class='row'>
+              <div class='col-sm-6'>
+                <div id='cpu'>CPU: </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -70,14 +75,18 @@
           $('#type').append(data.type);
         });
 
-        socket.on('dynamicData', function(data) {
-          $('.col-md-4').html(data.uptime + data.freemem);
-          $('#dynamic').html(
-            'uptime ' + data.uptime + ' free memory ' + data.freemem +
-              ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
-              ' load ' + data.load + ' network' + data.net
-          );
+        socket.on('cpu', function(cpu) {
+          $('#cpu').html('<p>CPU:<br>' + cpu.man + ' ' + cpu.brand +
+            '<br>Speed: ' + cpu.speed + '<br>Cores: ' + cpu.cores + '</p>');
         });
+       // socket.on('dynamicData', function(data) {
+       //   $('.col-md-4').html(data.uptime + data.freemem);
+       //   $('#dynamic').html(
+       //     'uptime ' + data.uptime + ' free memory ' + data.freemem +
+       //       ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
+       //       ' load ' + data.load + ' network' + data.net
+       //   );
+       // });
       })();
     </script>
   </body>
