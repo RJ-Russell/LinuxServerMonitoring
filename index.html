@@ -23,34 +23,21 @@
     <!-- Navbar: Host and User -->
     <nav class='navbar navbar-inverse'>
       <div class="nav-header">
-        <p class='navbar-text' id='host'>Hostname: </p>
+        <p class='navbar-text' id='host'></p>
         <p class='navbar-text' id='user'> Logged in as: </p>
       </div>
     </nav>
     <div class='row' id='sys'>
+          <div class='col-sm-12'>
           System Information
       <div class='jumbotron'>
-        <div class="container-fluid">
-          <div class='col-sm-12'>
-            <div class="row">
-              <div class='col-sm-6'>
-                <div id='arch'>Architecture: </div>
-              </div>
-              <div class='col-sm-6'>
-                <div id='type'>Type: </div>
-              </div>
-            </div>
+        <div class="container">
             <div class='row'>
               <div class='col-sm-6'>
-                <div id='plat'>Platform: </div>
+                <div id="os"></div>
               </div>
-              <div class='col-sm-6'>
-                <div id='rel'>Release: </div>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-sm-6'>
-                <div id='cpu'>CPU: </div>
+              <div class="col-sm-6">
+                <div id='cpu'></div>
               </div>
             </div>
           </div>
@@ -66,27 +53,37 @@
     <script type='text/javascript'>
       (function() {
         var socket = io.connect('http://localhost:8080/');
-        socket.on('hostData', function(data) {
-          $('#host').append(data.hostname);
-          $('#user').append(data.user.username);
-          $('#arch').append(data.arch);
-          $('#plat').append(data.plat);
-          $('#rel').append(data.rel);
-          $('#type').append(data.type);
+        socket.on('os', function(os) {
+          if(os.err) {
+            console.log(os.err);
+          }
+          console.log(os.plat);
+          $('#host').html('Hostname: ' + os.host);
+          $('#os').html(
+            'Operating System:<br>' + os.plat +
+              '<br>' + os.distro + ' ' + os.release + ' ' + os.cname +
+              '<br>' + os.kernel + ' ' + os.arch + ' ' + os.lgfile
+          );
         });
 
         socket.on('cpu', function(cpu) {
-          $('#cpu').html('<p>CPU:<br>' + cpu.man + ' ' + cpu.brand +
-            '<br>Speed: ' + cpu.speed + '<br>Cores: ' + cpu.cores + '</p>');
+          if(cpu.err) {
+            console.log(cpu.err);
+          } else {
+            $('#cpu').html(
+              'CPU:<br>' + cpu.man + ' ' + cpu.brand +
+                '<br>Speed: ' + cpu.speed + '<br>Cores: ' + cpu.cores
+            );
+          }
         });
-       // socket.on('dynamicData', function(data) {
-       //   $('.col-md-4').html(data.uptime + data.freemem);
-       //   $('#dynamic').html(
-       //     'uptime ' + data.uptime + ' free memory ' + data.freemem +
-       //       ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
-       //       ' load ' + data.load + ' network' + data.net
-       //   );
-       // });
+        // socket.on('dynamicData', function(data) {
+        //   $('.col-md-4').html(data.uptime + data.freemem);
+        //   $('#dynamic').html(
+        //     'uptime ' + data.uptime + ' free memory ' + data.freemem +
+        //       ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
+        //       ' load ' + data.load + ' network' + data.net
+        //   );
+        // });
       })();
     </script>
   </body>

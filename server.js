@@ -9,7 +9,6 @@ var server = express();
 server.use('/', express.static(__dirname + '/'));
 var io = socketio(server.listen(process.env.PORT || 8080));
 
-
 io.on('connection', function() {
   io.emit('hostData', {
     hostname: os.hostname(),
@@ -19,25 +18,50 @@ io.on('connection', function() {
     rel: os.release(),
     user: os.userInfo()
   });
+
   si.cpu()
-    .then(cpu =>
+    .then(cpu => {
       io.emit('cpu', {
         man: cpu.manufacturer,
         brand: cpu.brand,
         speed: cpu.speed,
         cores: cpu.cores
-      }));
+      });
+    })
+    .catch(error => {
+      io.emit('cpu', {
+        err: error
+      });
+    });
 
-    var uptime = os.uptime()
-    setInterval(function() {
-      //{
-      //  freemem: os.freemem(),
-      //  load: os.loadavg(),
-      //  net: os.networkInterfaces(),
-      //  totalmem: os.totalmem(),
-      //  uptime: os.uptime()
-      //});
-    }, 1000);
+  si.osInfo()
+    .then(os => {
+      io.emit('os', {
+        plat: os.platform,
+        distro: os.distro,
+        release: os.release,
+        cname: os.codename,
+        kernel: os.kernel,
+        arch: os.arch,
+        host: os.hostname,
+        lgfile: os.logofile
+      });
+    })
+    .catch(error => {
+      io.emit('os', {
+        err: error
+      });
+    });
+
+  setInterval(function() {
+    //{
+    //  freemem: os.freemem(),
+    //  load: os.loadavg(),
+    //  net: os.networkInterfaces(),
+    //  totalmem: os.totalmem(),
+    //  uptime: os.uptime()
+    //});
+  }, 1000);
 });
 
 var time = function(timeSeconds) {
