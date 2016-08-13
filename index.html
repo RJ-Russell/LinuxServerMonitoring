@@ -64,7 +64,11 @@
     </div>
     <div class='jumbotron'>
       <div class='container'>
-        <div id='dynamic'></div>
+
+        <div class="row">
+          <div id="mem"></div>
+        </div>
+
       </div>
     </div>
 
@@ -104,6 +108,18 @@
               ' max: ' + cpuSpeed.cpuSpeedInfo.max +
               ' avg: ' + cpuSpeed.cpuSpeedInfo.avg
           );
+        });
+
+        socket.on('mem', function(mem) {
+          $('#mem').html(
+            'Total: ' + mem.memInfo.total + ' free: ' + mem.memInfo.free +
+              ' used: ' + mem.memInfo.used + ' active: ' + mem.memInfo.active +
+              ' buffcache: ' + mem.memInfo.buffcache +
+              ' available: ' + mem.memInfo.available +
+              ' swaptotal: ' + mem.memInfo.swaptotal +
+              ' swapused: ' + mem.memInfo.swapused +
+              ' swapfree: ' + mem.memInfo.swapfree
+            );
         });
 
         var formatUptime = function(timeSeconds) {

@@ -49,6 +49,13 @@ setInterval(function() {
         cpuSpeedInfo: cpuSpeedData
       });
     });
+
+  si.mem()
+    .then(memData => {
+      io.emit('mem', {
+        memInfo: memData
+      });
+    });
 }, 1000);
 
 io.on('disconnect', function() {
