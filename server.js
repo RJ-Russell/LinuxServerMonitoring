@@ -2,9 +2,7 @@
 
 var express = require('express');
 var socketio = require('socket.io');
-var os = require('os');
 var si = require('systeminformation');
-var moment = require('moment');
 
 var server = express();
 server.use('/', express.static(__dirname + '/'));
