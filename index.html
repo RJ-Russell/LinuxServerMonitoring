@@ -28,7 +28,7 @@
     <nav class='navbar navbar-inverse'>
       <div class="nav-header">
         <div class='navbar-text' id='host'></div>
-        <div class='navbar-text' id='user'> Logged in as: </div>
+        <div class='navbar-text' id='user'></div>
         <div class='navbar-text' id='time'></div>
       </div>
     </nav>
@@ -61,6 +61,7 @@
         var socket = io.connect('http://localhost:8080/');
         socket.on('onConnection', function(static) {
           $('#host').html('Hostname: ' + static.osInfo.hostname);
+          $('#user').html('Logged in: ' + static.userInfo + ' at ' + static.userLogin);
           $('#os').html(
             'Operating System:<br>' + static.osInfo.platform +
               '<br>' + static.osInfo.distro + ' ' + static.osInfo.release +
@@ -87,7 +88,7 @@
 
         var formatCurrTime = function(longEpoch) {
           var epochDate = moment(longEpoch);
-          var strDate = epochDate.format("dddd, DD MMMM, YYYY HH:mm:ss");
+          var strDate = epochDate.format(" HH:mm:ss dddd, DD MMMM, YYYY");
           return strDate;
         };
       })();

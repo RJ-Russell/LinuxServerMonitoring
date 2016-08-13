@@ -30,31 +30,39 @@ var io = socketio(server.listen(process.env.PORT || 8080));
 //    console.log(data);
 //  });
 
-var cpu, os = 0;
+var cpu, os, user = 0;
 var clients = 0;
 si.cpu()
   .then(cpuData => {
     cpu = cpuData;
-  })
+  });
 
 si.osInfo()
   .then(osData => {
     os = osData
-  })
+  });
+
+si.users()
+  .then(userData => {
+    user = userData;
+  });
 
 io.on('connection', function(socket) {
   ++clients;
   socket.emit('onConnection', {
     osInfo: os,
-    cpuInfo: cpu
+    cpuInfo: cpu,
+    userInfo: user[0].user,
+    userLogin: user[0].time,
   });
 });
 
 setInterval(function() {
   io.emit('time', {
     curr: si.time().current,
-    uptime: si.time().uptime
+    uptime: si.time().uptime,
   });
+
 }, 1000);
 
 io.on('disconnect', function() {
