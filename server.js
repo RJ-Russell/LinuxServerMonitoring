@@ -20,9 +20,11 @@ si.osInfo()
     os = osData
   });
 
+var userName, userTime = 0;
 si.users()
   .then(userData => {
-    user = userData;
+    userName = (userData != null) ? userData[0].user : 'Undefined';
+    userTime = (userData != null) ? userData[0].time : 'Undefined';
   });
 
 io.on('connection', function(socket) {
@@ -30,8 +32,8 @@ io.on('connection', function(socket) {
   socket.emit('onConnection', {
     osInfo: os,
     cpuInfo: cpu,
-    userInfo: user[0].user,
-    userLogin: user[0].time,
+    userInfo: userName,
+    userLogin: userTime,
   });
 });
 
