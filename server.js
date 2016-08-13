@@ -23,8 +23,8 @@ si.osInfo()
 var userName, userTime = 0;
 si.users()
   .then(userData => {
-    userName = (userData != null) ? userData[0].user : 'Undefined';
-    userTime = (userData != null) ? userData[0].time : 'Undefined';
+    userName = userData[0].user;
+    userTime = userData[0].time;
   });
 
 io.on('connection', function(socket) {

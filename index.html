@@ -73,9 +73,12 @@
         var socket = io.connect('http://localhost:8080/');
         socket.on('onConnection', function(static) {
           $('#host').html(static.osInfo.hostname);
-          $('#user').html(
-            static.userInfo + ' logged in at ' + static.userLogin
-          );
+          if(static.userInfo != null) {
+            $('#user').html(static.userInfo);
+            if(static.userLogin != null) {
+             $('#user').append(' logged in at ' + static.userLogin);
+            }
+          }
           $('#os').html(
             static.osInfo.platform +
               '<br>' + static.osInfo.distro + ' ' + static.osInfo.release +
@@ -98,8 +101,8 @@
         socket.on('cpuSpeed', function(cpuSpeed) {
           $('#cpuSpeed').html(
             'CPU Speed:<br>' + 'min: ' + cpuSpeed.cpuSpeedInfo.min +
-            ' max: ' + cpuSpeed.cpuSpeedInfo.max +
-            ' avg: ' + cpuSpeed.cpuSpeedInfo.avg
+              ' max: ' + cpuSpeed.cpuSpeedInfo.max +
+              ' avg: ' + cpuSpeed.cpuSpeedInfo.avg
           );
         });
 
