@@ -23,8 +23,9 @@
     <!-- Navbar: Host and User -->
     <nav class='navbar navbar-inverse'>
       <div class="nav-header">
-        <p class='navbar-text' id='host'></p>
-        <p class='navbar-text' id='user'> Logged in as: </p>
+        <div class='navbar-text' id='host'></div>
+        <div class='navbar-text' id='user'> Logged in as: </div>
+        <div class='navbar-text' id='time'></div>
       </div>
     </nav>
     <div class='row' id='sys'>
@@ -53,29 +54,26 @@
     <script type='text/javascript'>
       (function() {
         var socket = io.connect('http://localhost:8080/');
-        socket.on('os', function(os) {
-          if(os.err) {
-            console.log(os.err);
-          }
-          console.log(os.plat);
-          $('#host').html('Hostname: ' + os.host);
+        socket.on('onConnection', function(static) {
+          $('#host').html('Hostname: ' + static.osInfo.hostname);
           $('#os').html(
-            'Operating System:<br>' + os.plat +
-              '<br>' + os.distro + ' ' + os.release + ' ' + os.cname +
-              '<br>' + os.kernel + ' ' + os.arch + ' ' + os.lgfile
+            'Operating System:<br>' + static.osInfo.platform +
+              '<br>' + static.osInfo.distro + ' ' + static.osInfo.release +
+                ' ' + static.osInfo.codename +
+                '<br>' + static.osInfo.kernel + ' ' + static.osInfo.arch + ' ' +
+                static.osInfo.logofile
           );
+            $('#cpu').html(
+              'CPU:<br>' + static.cpuInfo.manufacturer + ' ' + static.cpuInfo.brand +
+                '<br>Speed: ' + static.cpuInfo.speed + ' GHz<br>Cores: ' +
+                static.cpuInfo.cores
+            );
         });
 
-        socket.on('cpu', function(cpu) {
-          if(cpu.err) {
-            console.log(cpu.err);
-          } else {
-            $('#cpu').html(
-              'CPU:<br>' + cpu.man + ' ' + cpu.brand +
-                '<br>Speed: ' + cpu.speed + '<br>Cores: ' + cpu.cores
-            );
-          }
+        socket.on('time', function(time) {
+          $('#time').html(time.curr);
         });
+
         // socket.on('dynamicData', function(data) {
         //   $('.col-md-4').html(data.uptime + data.freemem);
         //   $('#dynamic').html(
