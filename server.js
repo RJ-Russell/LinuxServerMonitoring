@@ -52,30 +52,11 @@ io.on('connection', function(socket) {
 
 setInterval(function() {
   io.emit('time', {
-    curr: functionParseDate(si.time().current),
-    uptime: functionTime(si.time().uptime)
+    curr: si.time().current,
+    uptime: si.time().uptime
   });
 }, 1000);
 
 io.on('disconnect', function() {
   --clients;
 });
-
-var functionTime = function(timeSeconds) {
-  var date = new Date(timeSeconds * 1000);
-  var h = date.getUTCHours();
-  var m = date.getUTCMinutes();
-  var s = date.getSeconds();
-
-  if(h < 10) { h = "0"+h; }
-  if(m < 10) { m = "0"+m; }
-  if(s < 10) { s = "0"+s; }
-
-  return h + ":" + m + ":" + s;
-};
-
-var functionParseDate = function(longEpoch) {
-  var epochDate = moment(longEpoch);
-  var strDate = epochDate.format("dddd, DD MMMM, YYYY HH:mm:ss");
-  return strDate;
-};

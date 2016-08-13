@@ -15,6 +15,9 @@
     <script type='text/javascript'
       src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'>
     </script>
+    <script type="text/javascript" 
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js">
+    </script>
 
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
     <link rel='stylesheet' type='text/css' href='index.css' />
@@ -29,10 +32,10 @@
       </div>
     </nav>
     <div class='row' id='sys'>
-          <div class='col-sm-12'>
-          System Information
-      <div class='jumbotron'>
-        <div class="container">
+      <div class='col-sm-12'>
+        System Information
+        <div class='jumbotron'>
+          <div class="container">
             <div class='row'>
               <div class='col-sm-6'>
                 <div id="os"></div>
@@ -59,19 +62,19 @@
           $('#os').html(
             'Operating System:<br>' + static.osInfo.platform +
               '<br>' + static.osInfo.distro + ' ' + static.osInfo.release +
-                ' ' + static.osInfo.codename +
-                '<br>' + static.osInfo.kernel + ' ' + static.osInfo.arch + ' ' +
-                static.osInfo.logofile
+              ' ' + static.osInfo.codename +
+              '<br>' + static.osInfo.kernel + ' ' + static.osInfo.arch + ' ' +
+              static.osInfo.logofile
           );
-            $('#cpu').html(
-              'CPU:<br>' + static.cpuInfo.manufacturer + ' ' + static.cpuInfo.brand +
-                '<br>Speed: ' + static.cpuInfo.speed + ' GHz<br>Cores: ' +
-                static.cpuInfo.cores
-            );
+          $('#cpu').html(
+            'CPU:<br>' + static.cpuInfo.manufacturer + ' ' + static.cpuInfo.brand +
+              '<br>Speed: ' + static.cpuInfo.speed + ' GHz<br>Cores: ' +
+              static.cpuInfo.cores
+          );
         });
 
         socket.on('time', function(time) {
-          $('#time').html(time.curr);
+          $('#time').html(formatCurrTime(time.curr));
         });
 
         // socket.on('dynamicData', function(data) {
@@ -82,6 +85,25 @@
         //       ' load ' + data.load + ' network' + data.net
         //   );
         // });
+
+        var functionTime = function(timeSeconds) {
+          var date = new Date(timeSeconds * 1000);
+          var h = date.getUTCHours();
+          var m = date.getUTCMinutes();
+          var s = date.getSeconds();
+
+          if(h < 10) { h = "0"+h; }
+          if(m < 10) { m = "0"+m; }
+          if(s < 10) { s = "0"+s; }
+
+          return h + ":" + m + ":" + s;
+        };
+
+        var formatCurrTime = function(longEpoch) {
+          var epochDate = moment(longEpoch);
+          var strDate = epochDate.format("dddd, DD MMMM, YYYY HH:mm:ss");
+          return strDate;
+        };
       })();
     </script>
   </body>
