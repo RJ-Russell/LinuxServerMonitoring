@@ -29,25 +29,37 @@
       <div class="nav-header">
         <div class='navbar-text' id='host'></div>
         <div class='navbar-text' id='user'></div>
-        <div class='navbar-text' id='time'></div>
       </div>
     </nav>
-    <div class='row' id='sys'>
+
+    <div class='row main-sys-header'>
+      <div class='navbar-text' id='currTime'></div>
       <div class='col-sm-12'>
         <div>System Information</div>
         <div id='uptime'></div>
-        <div class='jumbotron'>
-          <div class="container">
+
+        <div class='jumbotron' id='jumbo-static-data'>
+          <div class='container'>
+
             <div class='row'>
               <div class='col-sm-6'>
-                <div id="os"></div>
+                <div class='sys-title'>Operating System</div>
+                <div class='sys-details' id='os'></div>
               </div>
-              <div class="col-sm-6">
-                <div id='cpu'></div>
+              <div class='col-sm-6'>
+                <div class='sys-title'>CPU</div>
+                <div class='sys-details' id='cpu'></div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div id='cpuSpeed'></div>
+              </div>
+            </div>
+
           </div>
         </div>
+
       </div>
     </div>
     <div class='jumbotron'>
@@ -60,27 +72,36 @@
       (function() {
         var socket = io.connect('http://localhost:8080/');
         socket.on('onConnection', function(static) {
-          $('#host').html('Hostname: ' + static.osInfo.hostname);
-          $('#user').html(static.userInfo + ' logged in at ' + static.userLogin);
+          $('#host').html(static.osInfo.hostname);
+          $('#user').html(
+            static.userInfo + ' logged in at ' + static.userLogin
+          );
           $('#os').html(
-            'Operating System:<br>' + static.osInfo.platform +
+            static.osInfo.platform +
               '<br>' + static.osInfo.distro + ' ' + static.osInfo.release +
               ' ' + static.osInfo.codename +
               '<br>' + static.osInfo.kernel + ' ' + static.osInfo.arch + ' ' +
               static.osInfo.logofile
           );
           $('#cpu').html(
-            'CPU:<br>' + static.cpuInfo.manufacturer + ' ' + static.cpuInfo.brand +
+            static.cpuInfo.manufacturer + ' ' + static.cpuInfo.brand +
               '<br>Speed: ' + static.cpuInfo.speed + ' GHz<br>Cores: ' +
               static.cpuInfo.cores
           );
         });
 
         socket.on('time', function(time) {
-          $('#time').html(formatCurrTime(time.curr));
+          $('#currTime').html(formatCurrTime(time.curr));
           $('#uptime').empty().html("Uptime: " + formatUptime(time.uptime));
         });
 
+        socket.on('cpuSpeed', function(cpuSpeed) {
+          $('#cpuSpeed').html(
+            'CPU Speed:<br>' + 'min: ' + cpuSpeed.cpuSpeedInfo.min +
+            ' max: ' + cpuSpeed.cpuSpeedInfo.max +
+            ' avg: ' + cpuSpeed.cpuSpeedInfo.avg
+          );
+        });
 
         var formatUptime = function(timeSeconds) {
           return moment.preciseDiff(0, timeSeconds*1000);
