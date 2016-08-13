@@ -97,28 +97,25 @@
           );
         });
 
-        socket.on('time', function(time) {
-          $('#currTime').html(formatCurrTime(time.curr));
-          $('#uptime').empty().html("Uptime: " + formatUptime(time.uptime));
-        });
+        socket.on('dynamic', function(dynamic) {
+          $('#currTime').html(formatCurrTime(dynamic.curr));
 
-        socket.on('cpuSpeed', function(cpuSpeed) {
+          $('#uptime').empty().html("Uptime: " + formatUptime(dynamic.uptime));
+
           $('#cpuSpeed').html(
-            'CPU Speed:<br>' + 'min: ' + cpuSpeed.cpuSpeedInfo.min +
-              ' max: ' + cpuSpeed.cpuSpeedInfo.max +
-              ' avg: ' + cpuSpeed.cpuSpeedInfo.avg
+            'CPU Speed:<br>' + 'min: ' + dynamic.cpuSpeedInfo.min +
+              ' max: ' + dynamic.cpuSpeedInfo.max +
+              ' avg: ' + dynamic.cpuSpeedInfo.avg
           );
-        });
 
-        socket.on('mem', function(mem) {
           $('#mem').html(
-            'Total: ' + mem.memInfo.total + ' free: ' + mem.memInfo.free +
-              ' used: ' + mem.memInfo.used + ' active: ' + mem.memInfo.active +
-              ' buffcache: ' + mem.memInfo.buffcache +
-              ' available: ' + mem.memInfo.available +
-              ' swaptotal: ' + mem.memInfo.swaptotal +
-              ' swapused: ' + mem.memInfo.swapused +
-              ' swapfree: ' + mem.memInfo.swapfree
+            'Total: ' + dynamic.memInfo.total + ' free: ' + dynamic.memInfo.free +
+              ' used: ' + dynamic.memInfo.used + ' active: ' + dynamic.memInfo.active +
+              ' buffcache: ' + dynamic.memInfo.buffcache +
+              ' available: ' + dynamic.memInfo.available +
+              ' swaptotal: ' + dynamic.memInfo.swaptotal +
+              ' swapused: ' + dynamic.memInfo.swapused +
+              ' swapfree: ' + dynamic.memInfo.swapfree
             );
         });
 

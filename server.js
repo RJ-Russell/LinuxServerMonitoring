@@ -37,25 +37,25 @@ io.on('connection', function(socket) {
   });
 });
 
+var mem, cpuSpeed = 0;
 setInterval(function() {
-  io.emit('time', {
-    curr: si.time().current,
-    uptime: si.time().uptime,
-  });
-
   si.cpuCurrentspeed()
     .then(cpuSpeedData => {
-      io.emit('cpuSpeed', {
-        cpuSpeedInfo: cpuSpeedData
-      });
+      cpuSpeed = cpuSpeedData;
     });
 
   si.mem()
     .then(memData => {
-      io.emit('mem', {
-        memInfo: memData
-      });
+      mem = memData;
     });
+
+  io.emit('dynamic', {
+    curr: si.time().current,
+    uptime: si.time().uptime,
+    cpuSpeedInfo: cpuSpeed,
+    memInfo: mem
+  });
+
 }, 1000);
 
 io.on('disconnect', function() {
