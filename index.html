@@ -15,9 +15,10 @@
     <script type='text/javascript'
       src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'>
     </script>
-    <script type="text/javascript" 
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js">
+    <script type='text/javascript'
+      src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'>
     </script>
+    <script src="moment-precise-range.js"></script>
 
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
     <link rel='stylesheet' type='text/css' href='index.css' />
@@ -33,7 +34,8 @@
     </nav>
     <div class='row' id='sys'>
       <div class='col-sm-12'>
-        System Information
+        <div>System Information</div>
+        <div id='uptime'></div>
         <div class='jumbotron'>
           <div class="container">
             <div class='row'>
@@ -75,28 +77,12 @@
 
         socket.on('time', function(time) {
           $('#time').html(formatCurrTime(time.curr));
+          $('#uptime').empty().html("Uptime: " + formatUptime(time.uptime));
         });
 
-        // socket.on('dynamicData', function(data) {
-        //   $('.col-md-4').html(data.uptime + data.freemem);
-        //   $('#dynamic').html(
-        //     'uptime ' + data.uptime + ' free memory ' + data.freemem +
-        //       ' total memory ' + data.totalmem + ' cpu ' + data.cpu +
-        //       ' load ' + data.load + ' network' + data.net
-        //   );
-        // });
 
-        var functionTime = function(timeSeconds) {
-          var date = new Date(timeSeconds * 1000);
-          var h = date.getUTCHours();
-          var m = date.getUTCMinutes();
-          var s = date.getSeconds();
-
-          if(h < 10) { h = "0"+h; }
-          if(m < 10) { m = "0"+m; }
-          if(s < 10) { s = "0"+s; }
-
-          return h + ":" + m + ":" + s;
+        var formatUptime = function(timeSeconds) {
+          return moment.preciseDiff(0, timeSeconds*1000);
         };
 
         var formatCurrTime = function(longEpoch) {
