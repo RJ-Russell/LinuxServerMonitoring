@@ -46,16 +46,16 @@ var cpuSpeedChart = 0;
       xDateFormat: '%A, %b %e, %H:%M:%S'
     },
     series: [{
-      id: 'cpuAvg',
-      name: 'Average CPU Speed',
+      id: 'cpuMin',
+      name: 'Min. CPU Speed',
       data: initialData()
     }, {
-      id: 'cpuMin',
-      name: 'Min CPU Speed',
+      id: 'cpuAvg',
+      name: 'Avg. CPU Speed',
       data: initialData()
     }, {
       id: 'cpuMax',
-      name: 'Max CPU Speed',
+      name: 'Max. CPU Speed',
       data: initialData()
     }]
   });

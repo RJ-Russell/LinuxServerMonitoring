@@ -100,13 +100,13 @@
 
           $('#uptime').empty().html("Uptime: " + formatUptime(dynamic.uptime));
 
-          var series1 = cpuSpeedChart.get('cpuAvg');
-          var series2 = cpuSpeedChart.get('cpuMin');
-          var series3 = cpuSpeedChart.get('cpuMax');
+          var cpuMinSer = cpuSpeedChart.get('cpuMin');
+          var cpuAvgSer = cpuSpeedChart.get('cpuAvg');
+          var cpuMaxSer = cpuSpeedChart.get('cpuMax');
           // when a sample arrives we plot it
-          series1.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.avg], false, true);
-          series2.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.min], false, true);
-          series3.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.max], true, true);
+          cpuMinSer.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.min], false, true);
+          cpuAvgSer.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.avg], false, true);
+          cpuMaxSer.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.max], true, true);
           $('#cpuSpeed').html(
             'CPU Speed<br>Min: ' + dynamic.cpuSpeedInfo.min + ' Avg: ' +
               dynamic.cpuSpeedInfo.avg + ' Max: ' + dynamic.cpuSpeedInfo.max
