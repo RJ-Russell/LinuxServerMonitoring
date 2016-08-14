@@ -44,12 +44,7 @@ setInterval(function() {
 
   si.cpuCurrentspeed()
     .then(cpuSpeedData => {
-      io.emit('cpu', {
-        x: currTime,
-        y: cpuSpeedData.avg,
-        y1: cpuSpeedData.min,
-        y2: cpuSpeedData.max
-      });
+      cpuSpeed = cpuSpeedData;
     });
 
   si.mem()

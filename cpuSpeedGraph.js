@@ -27,19 +27,6 @@ var cpuSpeedChart = 0;
       events: {
         load: function() {
           cpuSpeedChart = $('#cpu-container').highcharts();
-          var series1 = cpuSpeedChart.get('cpuAvg');
-          var series2 = cpuSpeedChart.get('cpuMin');
-          var series3 = cpuSpeedChart.get('cpuMax');
-          var socket = io.connect('http://localhost:8080');
-          socket.on('cpu', function (cpu) {
-            $('#cpuSpeed').html(
-              'CPU Speed<br>Min: ' + cpu.y + ' Avg: ' + cpu.y1 + ' Max: ' + cpu.y2
-            );
-            // when a sample arrives we plot it
-            series1.addPoint([cpu.x, cpu.y], false, true);
-            series2.addPoint([cpu.x, cpu.y1], false, true);
-            series3.addPoint([cpu.x, cpu.y2], true, true);
-          });
         }
       }
     },
