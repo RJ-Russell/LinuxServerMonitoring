@@ -40,7 +40,7 @@
         <div>System Information</div>
         <div id='uptime'></div>
 
-        <div class='jumbotron' id='jumbo-static-data'>
+        <div class='jumbotron'>
           <div class='container'>
 
             <div class='row'>
@@ -53,24 +53,20 @@
                 <div class='sys-details' id='cpu'></div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <div id='cpuSpeed'></div>
-              </div>
-            </div>
 
           </div>
         </div>
 
       </div>
     </div>
+    <div class='row main-sys-header'>
+      <div>CPU Information</div>
+    </div>
     <div class='jumbotron'>
       <div class='container'>
-
         <div class='row'>
           <div id='cpu-container'></div>
         </div>
-
       </div>
     </div>
 
@@ -82,7 +78,7 @@
           if(static.userInfo != null) {
             $('#user').html(static.userInfo);
             if(static.userLogin != null) {
-             $('#user').append(' logged in at ' + static.userLogin);
+              $('#user').append(' logged in at ' + static.userLogin);
             }
           }
           $('#os').html(
@@ -118,7 +114,7 @@
               ' swaptotal: ' + dynamic.memInfo.swaptotal +
               ' swapused: ' + dynamic.memInfo.swapused +
               ' swapfree: ' + dynamic.memInfo.swapfree
-            );
+          );
         });
 
         var formatUptime = function(timeSeconds) {

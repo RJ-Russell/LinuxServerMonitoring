@@ -46,7 +46,9 @@ setInterval(function() {
     .then(cpuSpeedData => {
       io.emit('cpu', {
         x: currTime,
-        y: cpuSpeedData.avg
+        y: cpuSpeedData.avg,
+        y1: cpuSpeedData.min,
+        y2: cpuSpeedData.max
       });
     });
 
