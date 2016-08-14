@@ -7,7 +7,7 @@
 
   $('#cpu-container').highcharts({
     chart: {
-      type: 'spline',
+      type: 'line',
       events: {
         load: function() {
           var chart = $('#cpu-container').highcharts();
@@ -43,6 +43,14 @@
           + this.y + ' ]';
       }
     },
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
     series: [{
       id: 'cpuAvg',
       name: 'Average CPU Speed',
@@ -94,7 +102,7 @@
         }
         return data;
       })()
-    
+
     }]
   });
 })();
