@@ -19,6 +19,8 @@
       src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'>
     </script>
     <script src="moment-precise-range.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
 
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
     <link rel='stylesheet' type='text/css' href='index.css' />
@@ -65,8 +67,8 @@
     <div class='jumbotron'>
       <div class='container'>
 
-        <div class="row">
-          <div id="mem"></div>
+        <div class='row'>
+          <div id='cpu-container'></div>
         </div>
 
       </div>
@@ -102,11 +104,11 @@
 
           $('#uptime').empty().html("Uptime: " + formatUptime(dynamic.uptime));
 
-          $('#cpuSpeed').html(
-            'CPU Speed:<br>' + 'min: ' + dynamic.cpuSpeedInfo.min +
-              ' max: ' + dynamic.cpuSpeedInfo.max +
-              ' avg: ' + dynamic.cpuSpeedInfo.avg
-          );
+          //$('#cpuSpeed').html(
+          //  'CPU Speed:<br>' + 'min: ' + dynamic.cpuSpeedInfo.min +
+          //    ' max: ' + dynamic.cpuSpeedInfo.max +
+          //    ' avg: ' + dynamic.cpuSpeedInfo.avg
+          //);
 
           $('#mem').html(
             'Total: ' + dynamic.memInfo.total + ' free: ' + dynamic.memInfo.free +
@@ -130,5 +132,6 @@
         };
       })();
     </script>
+    <script type='text/javascript' src='cpuSpeedGraph.js'></script>
   </body>
 </html>

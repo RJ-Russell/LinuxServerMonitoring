@@ -27,6 +27,7 @@ si.users()
     userTime = userData[0].time;
   });
 
+
 io.on('connection', function(socket) {
   ++clients;
   socket.emit('onConnection', {
@@ -39,9 +40,14 @@ io.on('connection', function(socket) {
 
 var mem, cpuSpeed = 0;
 setInterval(function() {
+  var currTime = si.time().current;
+
   si.cpuCurrentspeed()
     .then(cpuSpeedData => {
-      cpuSpeed = cpuSpeedData;
+      io.emit('cpu', {
+        x: currTime,
+        y: cpuSpeedData.avg
+      });
     });
 
   si.mem()
@@ -50,7 +56,7 @@ setInterval(function() {
     });
 
   io.emit('dynamic', {
-    curr: si.time().current,
+    curr: currTime,
     uptime: si.time().uptime,
     cpuSpeedInfo: cpuSpeed,
     memInfo: mem
