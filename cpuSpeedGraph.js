@@ -13,61 +13,63 @@ var initialData = function() {
   return data;
 };
 
-
-Highcharts.setOptions({
-  global: {
-    useUTC: false
-  }
-});
-
-$('#cpu-container').highcharts({
-  chart: {
-    type: 'spline',
-    events: {
-      load: function() {
-        var chart = $('#cpu-container').highcharts();
-        var series1 = chart.get('cpuAvg');
-        var series2 = chart.get('cpuMin');
-        var series3 = chart.get('cpuMax');
-        var socket = io.connect('http://localhost:8080');
-        socket.on('cpu', function (cpu) {
-          $('#cpuSpeed').html(
-            'CPU Speed<br>Min: ' + cpu.y + ' Avg: ' + cpu.y1 + ' Max: ' + cpu.y2
-          );
-          // when a sample arrives we plot it
-          series1.addPoint([cpu.x, cpu.y], false, true);
-          series2.addPoint([cpu.x, cpu.y1], false, true);
-          series3.addPoint([cpu.x, cpu.y2], true, true);
-        });
-      }
+var cpuSpeedChart = 0;
+(function() {
+  Highcharts.setOptions({
+    global: {
+      useUTC: false
     }
-  },
-  title: { text: '' },
-  xAxis: {
-    type: 'datetime',
-    tickPixelInterval: 100
-  },
-  yAxis: {
-    title: { text: 'Avg CPU Speed (GHz)' },
-    tickInterval: 1,
-    endOnTick: false,
-    min: 0,
-    max: null
-  },
-  tooltip: {
-    xDateFormat: '%A, %b %e, %H:%M:%S'
-  },
-  series: [{
-    id: 'cpuAvg',
-    name: 'Average CPU Speed',
-    data: initialData()
-  }, {
-    id: 'cpuMin',
-    name: 'Min CPU Speed',
-    data: initialData()
-  }, {
-    id: 'cpuMax',
-    name: 'Max CPU Speed',
-    data: initialData()
-  }]
-});
+  });
+
+  $('#cpu-container').highcharts({
+    chart: {
+      type: 'spline',
+      events: {
+        load: function() {
+          cpuSpeedChart = $('#cpu-container').highcharts();
+          var series1 = cpuSpeedChart.get('cpuAvg');
+          var series2 = cpuSpeedChart.get('cpuMin');
+          var series3 = cpuSpeedChart.get('cpuMax');
+          var socket = io.connect('http://localhost:8080');
+          socket.on('cpu', function (cpu) {
+            $('#cpuSpeed').html(
+              'CPU Speed<br>Min: ' + cpu.y + ' Avg: ' + cpu.y1 + ' Max: ' + cpu.y2
+            );
+            // when a sample arrives we plot it
+            series1.addPoint([cpu.x, cpu.y], false, true);
+            series2.addPoint([cpu.x, cpu.y1], false, true);
+            series3.addPoint([cpu.x, cpu.y2], true, true);
+          });
+        }
+      }
+    },
+    title: { text: '' },
+    xAxis: {
+      type: 'datetime',
+      tickPixelInterval: 100
+    },
+    yAxis: {
+      title: { text: 'Avg CPU Speed (GHz)' },
+      tickInterval: 1,
+      endOnTick: false,
+      min: 0,
+      max: null
+    },
+    tooltip: {
+      xDateFormat: '%A, %b %e, %H:%M:%S'
+    },
+    series: [{
+      id: 'cpuAvg',
+      name: 'Average CPU Speed',
+      data: initialData()
+    }, {
+      id: 'cpuMin',
+      name: 'Min CPU Speed',
+      data: initialData()
+    }, {
+      id: 'cpuMax',
+      name: 'Max CPU Speed',
+      data: initialData()
+    }]
+  });
+})();
