@@ -108,7 +108,8 @@
           series2.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.min], false, true);
           series3.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.max], true, true);
           $('#cpuSpeed').html(
-            'CPU Speed<br>Min: ' + cpu.y + ' Avg: ' + cpu.y1 + ' Max: ' + cpu.y2
+            'CPU Speed<br>Min: ' + dynamic.cpuSpeedInfo.min + ' Avg: ' +
+              dynamic.cpuSpeedInfo.avg + ' Max: ' + dynamic.cpuSpeedInfo.max
           );
           //$('#cpuSpeed').html(
           //  'CPU Speed:<br>' + 'min: ' + dynamic.cpuSpeedInfo.min +
