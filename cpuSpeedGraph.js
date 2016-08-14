@@ -17,8 +17,8 @@
           var socket = io.connect('http://localhost:8080');
           socket.on('cpu', function (cpu) {
             // when a sample arrives we plot it
-            series1.addPoint([cpu.x, cpu.y], true, true);
-            series2.addPoint([cpu.x, cpu.y1], true, true);
+            series1.addPoint([cpu.x, cpu.y], false, true);
+            series2.addPoint([cpu.x, cpu.y1], false, true);
             series3.addPoint([cpu.x, cpu.y2], true, true);
           });
         }
@@ -43,13 +43,13 @@
           + this.y + ' ]';
       }
     },
-    plotOptions: {
-      line: {
-        marker: {
-          enabled: false
-        }
-      }
-    },
+    //plotOptions: {
+    //  line: {
+    //    marker: {
+    //      enabled: false
+    //    }
+    //  }
+    //},
 
     series: [{
       id: 'cpuAvg',
