@@ -7,7 +7,7 @@
 
   $('#cpu-container').highcharts({
     chart: {
-      type: 'line',
+      type: 'spline',
       events: {
         load: function() {
           var chart = $('#cpu-container').highcharts();
@@ -16,6 +16,9 @@
           var series3 = chart.get('cpuMax');
           var socket = io.connect('http://localhost:8080');
           socket.on('cpu', function (cpu) {
+            $('#cpuSpeed').html(
+              'CPU Speed<br>Min: ' + cpu.y + ' Avg: ' + cpu.y1 + ' Max: ' + cpu.y2
+            );
             // when a sample arrives we plot it
             series1.addPoint([cpu.x, cpu.y], false, true);
             series2.addPoint([cpu.x, cpu.y1], false, true);
@@ -32,25 +35,13 @@
     yAxis: {
       title: { text: 'Avg CPU Speed (GHz)' },
       tickInterval: 1,
+      endOnTick: false,
       min: 0,
-      max: 5
+      max: null
     },
     tooltip: {
-      formatter: function() {
-        return '<b>'+ this.series.name + '</b><br/>'
-          + '[ ' + Highcharts.dateFormat('%m-%d-%Y %H:%M:%S', this.x)
-          + ' , '
-          + this.y + ' ]';
-      }
+      xDateFormat: '%A, %b %e, %H:%M'
     },
-    //plotOptions: {
-    //  line: {
-    //    marker: {
-    //      enabled: false
-    //    }
-    //  }
-    //},
-
     series: [{
       id: 'cpuAvg',
       name: 'Average CPU Speed',
