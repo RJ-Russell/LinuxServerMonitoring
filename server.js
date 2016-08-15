@@ -40,6 +40,7 @@ io.on('connection', function(socket) {
 
 var currTime, cpuSpeed, cpuLoad, fullLoad, fsSize, mem, processes = 0;
 setInterval(function() {
+  if(clients <= 0) { return; }
   currTime = si.time().current;
 
   si.cpuCurrentspeed()

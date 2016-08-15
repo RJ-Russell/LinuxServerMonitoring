@@ -1,3 +1,22 @@
+
+/** Classes **/
+.col-sm-6 {
+  border: 1px solid black;
+  font-size: 20px;
+  text-align: left;
+}
+
+.jumbotron {
+  background-color: #BCB293;
+  border-bottom: 2px solid #000000;
+  padding: 0;
+}
+
+.main-sys-header {
+  font-size: 30px;
+  text-align: center;
+}
+
 .navbar-inverse {
   border-radius: 0px;
   margin-bottom: 0;
@@ -9,21 +28,8 @@
   width: 100%;
 }
 
-.col-sm-6 {
-  border: 1px solid black;
-  border-bottom: 3px solid #000000;
-  font-size: 20px;
-  text-align: left;
-}
-
-.jumbotron {
-  background-color: #BCB293;
-  padding: 0;
-}
-
-.main-sys-header {
-  font-size: 30px;
-  text-align: center;
+.sys-details {
+  margin-left: 60px;
 }
 
 .sys-title {
@@ -32,12 +38,13 @@
   text-align: center;
 }
 
-.sys-details {
-  margin-left: 60px;
-}
-
+/** Id's **/
 #host {
   font-size: 40px;
+}
+
+#cpuLoad-container {
+  border: 1px solid #000000;
 }
 
 #currTime {
@@ -49,8 +56,3 @@
   background-color: #222222;
   color: #9D9D9D;
 }
-
-#cpu-container {
-  border: 1px solid #000000;
-}
-

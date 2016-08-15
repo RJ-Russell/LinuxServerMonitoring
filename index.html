@@ -6,24 +6,6 @@
 
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=0' />
 
-    <script type='text/javascript'
-      src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'>
-    </script>
-    <script type='text/javascript'
-      src='http://localhost:8080/socket.io/socket.io.js'>
-    </script>
-    <script type='text/javascript'
-      src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'>
-    </script>
-    <script type='text/javascript'
-      src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'>
-    </script>
-    <script type="text/javascript"
-      src="http://cdn.filesizejs.com/filesize.min.js">
-    </script>
-    <script src="moment-precise-range.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-
 
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
     <link rel='stylesheet' type='text/css' href='index.css' />
@@ -61,20 +43,41 @@
 
     </div>
 
+    <!-- START OF CPU SECTION -->
     <div class='row main-sys-header'>
       <div>CPU Information</div>
-      <div class='sub-header' id='cpuSpeed'></div>
-    </div>
-    <div class='jumbotron'>
-      <div class='container'>
-        <div class='row'>
-          <div id='cpu-container'></div>
+
+      <!-- CPU Load -->
+      <div class='sub-header'>
+        <div>CPU Load</div>
+        <div id='cpuLoad'></div>
+      </div>
+      <div class='jumbotron'>
+        <div class='container'>
+          <div class='row'>
+            <div id='cpuLoad-container'></div>
+          </div>
         </div>
       </div>
-    </div>
+      <!-- CPU Speed -->
+      <div class='sub-header'>
+        <div>CPU Speed</div>
+        <div id='cpuSpeed'></div>
+      </div>
+      <div class='jumbotron'>
+        <div class='container'>
+          <div class='row'>
+            <div id='cpuSpeed-container'></div>
+          </div>
+        </div>
+
+      </div>
+    </div> <!-- END OF CPU SECTION -->
+
+    <!-- START OF MEMORY SECTION -->
     <div class='row main-sys-header'>
       <div>Memory Information</div>
-      <div class='sub-header' id='cpuSpeed'></div>
+      <div class='sub-header' id='mem'></div>
     </div>
     <div class='jumbotron'>
       <div class='container'>
@@ -82,72 +85,31 @@
           <div id='mem'></div>
         </div>
       </div>
-    </div>
+    </div> <!-- END OF MEMORY SECTION -->
 
-    <script type='text/javascript'>
-      (function() {
-        var socket = io.connect('http://localhost:8080/');
-        socket.on('onConnection', function(static) {
-          $('#host').html(static.osInfo.hostname);
-          if(static.userInfo != null) {
-            $('#user').html(static.userInfo);
-            if(static.userLogin != null) {
-              $('#user').append(' logged in at ' + static.userLogin);
-            }
-          }
-          $('#os').html(
-            static.osInfo.platform +
-              '<br>' + static.osInfo.distro + ' ' + static.osInfo.release +
-              ' ' + static.osInfo.codename +
-              '<br>' + static.osInfo.kernel + ' ' + static.osInfo.arch + ' ' +
-              static.osInfo.logofile
-          );
-          $('#cpu').html(
-            static.cpuInfo.manufacturer + ' ' + static.cpuInfo.brand +
-              '<br>Speed: ' + static.cpuInfo.speed + ' GHz<br>Cores: ' +
-              static.cpuInfo.cores
-          );
-        });
-
-        socket.on('dynamic', function(dynamic) {
-          // Current time and Uptime
-          $('#currTime').html(formatCurrTime(dynamic.curr));
-          $('#uptime').empty().html("Uptime: " + formatUptime(dynamic.uptime));
-
-          // CPU Information
-          $('#cpuSpeed').html(
-            'CPU Speed<br>Min: ' + dynamic.cpuSpeedInfo.min + ' Avg: ' +
-              dynamic.cpuSpeedInfo.avg + ' Max: ' + dynamic.cpuSpeedInfo.max
-          );
-          addToCpuSpeedChart(dynamic.curr, dynamic.cpuSpeedInfo.min,
-            dynamic.cpuSpeedInfo.avg, dynamic.cpuSpeedInfo.max);
-          console.log(dynamic.cpuLoadInfo, dynamic.cpuFullLoadInfo);
-
-          // Memory Information
-          $('#mem').html(
-            'Total: ' + filesize(dynamic.memInfo.total, {base: 2}) +
-              ' free: ' + filesize(dynamic.memInfo.free) +
-              ' used: ' + filesize(dynamic.memInfo.used) + ' active: ' + dynamic.memInfo.active +
-              ' buffcache: ' + dynamic.memInfo.buffcache +
-              ' available: ' + dynamic.memInfo.available +
-              ' swaptotal: ' + dynamic.memInfo.swaptotal +
-              ' swapused: ' + dynamic.memInfo.swapused +
-              ' swapfree: ' + dynamic.memInfo.swapfree
-          );
-
-        });
-
-        var formatUptime = function(timeSeconds) {
-          return moment.preciseDiff(0, timeSeconds*1000);
-        };
-
-        var formatCurrTime = function(longEpoch) {
-          var epochDate = moment(longEpoch);
-          var strDate = epochDate.format(" HH:mm:ss dddd, DD MMMM, YYYY");
-          return strDate;
-        };
-      })();
+    <!-- External Libraries -->
+    <script type='text/javascript'
+      src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'>
     </script>
+    <script type='text/javascript'
+      src='http://localhost:8080/socket.io/socket.io.js'>
+    </script>
+    <script type='text/javascript'
+      src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'>
+    </script>
+    <script type='text/javascript'
+      src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'>
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.filesizejs.com/filesize.min.js">
+    </script>
+    <script src="moment-precise-range.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <!-- My Scripts -->
+    <script type='text/javascript' src='global.js'></script>
     <script type='text/javascript' src='cpuSpeedGraph.js'></script>
+    <script type='text/javascript' src='index.js'></script>
+
   </body>
 </html>
