@@ -1,4 +1,4 @@
-(function() {
+$(function() {
   var socket = io.connect('http://localhost:8080/');
   socket.on('onConnection', function(static) {
     $('#host').html(static.osInfo.hostname);
@@ -30,7 +30,11 @@
     // CPU Information
     $('#cpuLoad').html('Avg Load: ' + dynamic.cpuLoadInfo.avgload +
       ' Current Load: ' + dynamic.cpuLoadInfo.currentload +
-      ' Full Load: ' + dynamic.cpuFullLoadInfo.fullload);
+      ' Full Load: ' + (dynamic.cpuFullLoadInfo.fullload).toFixed(2));
+
+    addToCpuLoadChart(dynamic.curr, dynamic.cpuLoadInfo.avgload,
+      dynamic.cpuLoadInfo.currentload,
+      dynamic.cpuFullLoadInfo.fullload);
 
     $('#cpuSpeed').html('Min: ' + dynamic.cpuSpeedInfo.min +
       ' Avg: ' + dynamic.cpuSpeedInfo.avg + ' Max: ' + dynamic.cpuSpeedInfo.max
@@ -51,4 +55,4 @@
         ' swapfree: ' + dynamic.memInfo.swapfree
     );
   });
-})();
+});

@@ -38,49 +38,65 @@ io.on('connection', function(socket) {
   });
 });
 
-var currTime, cpuSpeed, cpuLoad, fullLoad, fsSize, mem, processes = 0;
 setInterval(function() {
+  var currTime, cpuSpeed, cpuLoad, fullLoad, fsSize, mem, processes, ready = 0;
   if(clients <= 0) { return; }
   currTime = si.time().current;
 
   si.cpuCurrentspeed()
     .then(cpuSpeedData => {
       cpuSpeed = cpuSpeedData;
+      ++ready;
+      send();
     });
 
   si.currentLoad()
     .then(cpuLoadData => {
       cpuLoad = cpuLoadData;
+      ++ready;
+      send();
     });
 
   si.fullLoad()
     .then(cpuFullLoadData => {
       fullLoad = cpuFullLoadData;
+      ++ready;
+      send();
     });
 
   si.fsSize()
     .then(fsSizeData => {
       fsSize = fsSizeData;
+      ++ready;
+      send();
     });
 
   si.mem()
     .then(memData => {
       mem = memData;
+      ++ready;
+      send();
     });
 
   si.processes()
     .then(processesData => {
       processes = processesData;
+      ++ready;
+      send();
     });
 
-  io.emit('dynamic', {
-    curr: currTime,
-    uptime: si.time().uptime,
-    cpuSpeedInfo: cpuSpeed,
-    cpuLoadInfo: cpuLoad,
-    cpuFullLoadInfo: fullLoad,
-    memInfo: mem
-  });
+  function send() {
+    if(ready === 6) {
+      io.emit('dynamic', {
+        curr: currTime,
+        uptime: si.time().uptime,
+        cpuSpeedInfo: cpuSpeed,
+        cpuLoadInfo: cpuLoad,
+        cpuFullLoadInfo: fullLoad,
+        memInfo: mem
+      });
+    }
+  }
 
 }, 1000);
 

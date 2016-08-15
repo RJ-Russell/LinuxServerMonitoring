@@ -1,4 +1,5 @@
 var cpuSpeedChart = 0;
+var cpuLoadChart = 0;
 
 // generate some points to render before real samples arrive from feed
 var initialData = function() {

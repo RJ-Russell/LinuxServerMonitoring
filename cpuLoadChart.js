@@ -5,12 +5,12 @@
     }
   });
 
-  $('#cpuSpeed-container').highcharts({
+  $('#cpuLoad-container').highcharts({
     chart: {
       type: 'spline',
       events: {
         load: function() {
-          cpuSpeedChart = $('#cpuSpeed-container').highcharts();
+          cpuLoadChart = $('#cpuLoad-container').highcharts();
         }
       }
     },
@@ -20,7 +20,7 @@
       tickPixelInterval: 100
     },
     yAxis: {
-      title: { text: 'CPU Speed (GHz)' },
+      title: { text: 'CPU Load (%)' },
       tickInterval: 1,
       endOnTick: false,
       min: 0,
@@ -30,28 +30,28 @@
       xDateFormat: '%A, %b %e, %H:%M:%S'
     },
     series: [{
-      id: 'cpuMin',
-      name: 'Min. CPU Speed',
-      data: initialData()
-    }, {
       id: 'cpuAvg',
-      name: 'Avg. CPU Speed',
+      name: 'Avg. CPU Load',
       data: initialData()
     }, {
-      id: 'cpuMax',
-      name: 'Max. CPU Speed',
+      id: 'cpuCurr',
+      name: 'Current CPU Load',
+      data: initialData()
+    }, {
+      id: 'cpuFull',
+      name: 'Full CPU Load',
       data: initialData()
     }]
   });
 })();
 
-var addToCpuSpeedChart = function(currTime, min, avg, max) {
-  var cpuMinSer = cpuSpeedChart.get('cpuMin');
-  var cpuAvgSer = cpuSpeedChart.get('cpuAvg');
-  var cpuMaxSer = cpuSpeedChart.get('cpuMax');
+var addToCpuLoadChart = function(currTime, avg, curr, full) {
+  var cpuAvgSer = cpuLoadChart.get('cpuAvg');
+  var cpuCurrSer = cpuLoadChart.get('cpuCurr');
+  var cpuFullSer = cpuLoadChart.get('cpuFull');
 
-  cpuMinSer.addPoint([currTime, min], false, true);
   cpuAvgSer.addPoint([currTime, avg], false, true);
-  cpuMaxSer.addPoint([currTime, max], true, true);
+  cpuCurrSer.addPoint([currTime, curr], false, true);
+  cpuFullSer.addPoint([currTime, full], true, true);
 }
 
