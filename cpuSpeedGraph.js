@@ -13,6 +13,17 @@ var initialData = function() {
   return data;
 };
 
+var addToCpuSpeedChart = function(currTime, min, avg, max) {
+  // CPU Speed Chart
+  var cpuMinSer = cpuSpeedChart.get('cpuMin');
+  var cpuAvgSer = cpuSpeedChart.get('cpuAvg');
+  var cpuMaxSer = cpuSpeedChart.get('cpuMax');
+  // when a sample arrives we plot it
+  cpuMinSer.addPoint([currTime, min], false, true);
+  cpuAvgSer.addPoint([currTime, avg], false, true);
+  cpuMaxSer.addPoint([currTime, max], true, true);
+}
+
 var cpuSpeedChart = 0;
 (function() {
   Highcharts.setOptions({

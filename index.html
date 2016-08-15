@@ -18,6 +18,9 @@
     <script type='text/javascript'
       src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js'>
     </script>
+    <script type="text/javascript"
+      src="http://cdn.filesizejs.com/filesize.min.js">
+    </script>
     <script src="moment-precise-range.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
 
@@ -69,6 +72,17 @@
         </div>
       </div>
     </div>
+    <div class='row main-sys-header'>
+      <div>Memory Information</div>
+      <div class='sub-header' id='cpuSpeed'></div>
+    </div>
+    <div class='jumbotron'>
+      <div class='container'>
+        <div class='row'>
+          <div id='mem'></div>
+        </div>
+      </div>
+    </div>
 
     <script type='text/javascript'>
       (function() {
@@ -96,30 +110,24 @@
         });
 
         socket.on('dynamic', function(dynamic) {
+          // Current time and Uptime
           $('#currTime').html(formatCurrTime(dynamic.curr));
-
           $('#uptime').empty().html("Uptime: " + formatUptime(dynamic.uptime));
 
-          var cpuMinSer = cpuSpeedChart.get('cpuMin');
-          var cpuAvgSer = cpuSpeedChart.get('cpuAvg');
-          var cpuMaxSer = cpuSpeedChart.get('cpuMax');
-          // when a sample arrives we plot it
-          cpuMinSer.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.min], false, true);
-          cpuAvgSer.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.avg], false, true);
-          cpuMaxSer.addPoint([dynamic.curr, dynamic.cpuSpeedInfo.max], true, true);
+          // CPU Information
           $('#cpuSpeed').html(
             'CPU Speed<br>Min: ' + dynamic.cpuSpeedInfo.min + ' Avg: ' +
               dynamic.cpuSpeedInfo.avg + ' Max: ' + dynamic.cpuSpeedInfo.max
           );
-          //$('#cpuSpeed').html(
-          //  'CPU Speed:<br>' + 'min: ' + dynamic.cpuSpeedInfo.min +
-          //    ' max: ' + dynamic.cpuSpeedInfo.max +
-          //    ' avg: ' + dynamic.cpuSpeedInfo.avg
-          //);
+          addToCpuSpeedChart(dynamic.curr, dynamic.cpuSpeedInfo.min,
+            dynamic.cpuSpeedInfo.avg, dynamic.cpuSpeedInfo.max);
+          console.log(dynamic.cpuLoadInfo, dynamic.cpuFullLoadInfo);
 
+          // Memory Information
           $('#mem').html(
-            'Total: ' + dynamic.memInfo.total + ' free: ' + dynamic.memInfo.free +
-              ' used: ' + dynamic.memInfo.used + ' active: ' + dynamic.memInfo.active +
+            'Total: ' + filesize(dynamic.memInfo.total, {base: 2}) +
+              ' free: ' + filesize(dynamic.memInfo.free) +
+              ' used: ' + filesize(dynamic.memInfo.used) + ' active: ' + dynamic.memInfo.active +
               ' buffcache: ' + dynamic.memInfo.buffcache +
               ' available: ' + dynamic.memInfo.available +
               ' swaptotal: ' + dynamic.memInfo.swaptotal +

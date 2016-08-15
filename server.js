@@ -38,13 +38,28 @@ io.on('connection', function(socket) {
   });
 });
 
-var mem, cpuSpeed = 0;
+var currTime, cpuSpeed, cpuLoad, fullLoad, fsSize, mem, processes = 0;
 setInterval(function() {
-  var currTime = si.time().current;
+  currTime = si.time().current;
 
   si.cpuCurrentspeed()
     .then(cpuSpeedData => {
       cpuSpeed = cpuSpeedData;
+    });
+
+  si.currentLoad()
+    .then(cpuLoadData => {
+      cpuLoad = cpuLoadData;
+    });
+
+  si.fullLoad()
+    .then(cpuFullLoadData => {
+      fullLoad = cpuFullLoadData;
+    });
+
+  si.fsSize()
+    .then(fsSizeData => {
+      fsSize = fsSizeData;
     });
 
   si.mem()
@@ -52,10 +67,17 @@ setInterval(function() {
       mem = memData;
     });
 
+  si.processes()
+    .then(processesData => {
+      processes = processesData;
+    });
+
   io.emit('dynamic', {
     curr: currTime,
     uptime: si.time().uptime,
     cpuSpeedInfo: cpuSpeed,
+    cpuLoadInfo: cpuLoad,
+    cpuFullLoadInfo: fullLoad,
     memInfo: mem
   });
 
