@@ -56,7 +56,8 @@ function chartTemplate(container, chart, title, data) {
         }
       }
     },
-    title: { text: title },
+    credits: { enabled: false },
+    title: { text: '' },
     xAxis: {
       type: 'datetime',
       tickPixelInterval: 100
