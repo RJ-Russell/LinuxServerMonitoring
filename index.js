@@ -22,37 +22,37 @@ $(function() {
     );
   });
 
-  socket.on('dynamic', function(dynamic) {
+  socket.on('heartbeat', function(dynamic) {
     // Current time and Uptime
-    $('#currTime').html(formatCurrTime(dynamic.curr));
+    $('#currTime').html(formatCurrTime(dynamic.currTime));
     $('#uptime').empty().html("Uptime: " + formatUptime(dynamic.uptime));
 
     // CPU Information
-    $('#cpuLoad').html('Avg Load: ' + dynamic.cpuLoadInfo.avgload +
-      ' Current Load: ' + dynamic.cpuLoadInfo.currentload +
-      ' Full Load: ' + (dynamic.cpuFullLoadInfo.fullload).toFixed(2));
+    $('#cpuLoad').html('Avg Load: ' + dynamic.cpuLoad.avgload +
+      ' Current Load: ' + dynamic.cpuLoad.currentload +
+      ' Full Load: ' + (dynamic.fullLoad.fullload).toFixed(2));
 
-    addToCpuLoadChart(dynamic.curr, dynamic.cpuLoadInfo.avgload,
-      dynamic.cpuLoadInfo.currentload,
-      dynamic.cpuFullLoadInfo.fullload);
+    addToCpuLoadChart(dynamic.currTime, dynamic.cpuLoad.avgload,
+      dynamic.cpuLoad.currentload,
+      dynamic.fullLoad.fullload);
 
-    $('#cpuSpeed').html('Min: ' + dynamic.cpuSpeedInfo.min +
-      ' Avg: ' + dynamic.cpuSpeedInfo.avg + ' Max: ' + dynamic.cpuSpeedInfo.max
+    $('#cpuSpeed').html('Min: ' + dynamic.cpuSpeed.min +
+      ' Avg: ' + dynamic.cpuSpeed.avg + ' Max: ' + dynamic.cpuSpeed.max
     );
 
-    addToCpuSpeedChart(dynamic.curr, dynamic.cpuSpeedInfo.min,
-      dynamic.cpuSpeedInfo.avg, dynamic.cpuSpeedInfo.max);
+    addToCpuSpeedChart(dynamic.currTime, dynamic.cpuSpeed.min,
+      dynamic.cpuSpeed.avg, dynamic.cpuSpeed.max);
 
     // Memory Information
     $('#mem').html(
-      'Total: ' + filesize(dynamic.memInfo.total) +
-        ' free: ' + filesize(dynamic.memInfo.free) +
-        ' used: ' + filesize(dynamic.memInfo.used) + ' active: ' + dynamic.memInfo.active +
-        ' buffcache: ' + dynamic.memInfo.buffcache +
-        ' available: ' + dynamic.memInfo.available +
-        ' swaptotal: ' + dynamic.memInfo.swaptotal +
-        ' swapused: ' + dynamic.memInfo.swapused +
-        ' swapfree: ' + dynamic.memInfo.swapfree
+      'Total: ' + filesize(dynamic.mem.total) +
+        ' free: ' + filesize(dynamic.mem.free) +
+        ' used: ' + filesize(dynamic.mem.used) + ' active: ' + dynamic.mem.active +
+        ' buffcache: ' + dynamic.mem.buffcache +
+        ' available: ' + dynamic.mem.available +
+        ' swaptotal: ' + dynamic.mem.swaptotal +
+        ' swapused: ' + dynamic.mem.swapused +
+        ' swapfree: ' + dynamic.mem.swapfree
     );
   });
 });

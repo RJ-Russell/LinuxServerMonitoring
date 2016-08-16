@@ -3,6 +3,7 @@
 var express = require('express');
 var socketio = require('socket.io');
 var si = require('systeminformation');
+var async = require('async');
 
 var server = express();
 server.use('/', express.static(__dirname + '/'));
@@ -38,67 +39,54 @@ io.on('connection', function(socket) {
   });
 });
 
-function dynamic() {
-  var currTime, cpuSpeed, cpuLoad, fullLoad, fsSize, mem, processes, ready = 0;
-  currTime = si.time().current;
+(function heartbeat() {
+	var dynamic = {}, ready = 0;
 
-  si.cpuCurrentspeed()
-    .then(cpuSpeedData => {
-      cpuSpeed = cpuSpeedData;
-      ++ready;
-      send();
-    });
+	if (clients <= 0) {
+		setTimeout(heartbeat, 1000);
+		return;
+	}
 
-  si.currentLoad()
-    .then(cpuLoadData => {
-      cpuLoad = cpuLoadData;
-      ++ready;
-      send();
-    });
+  dynamic['currTime'] = si.time().current;
+  dynamic['uptime'] = si.time().uptime;
 
-  si.fullLoad()
-    .then(cpuFullLoadData => {
-      fullLoad = cpuFullLoadData;
-      ++ready;
-      send();
-    });
+	si.currentLoad().then(cpuLoad => {
+		dynamic['cpuLoad'] = cpuLoad;
+		send();
+	});
 
-  si.fsSize()
-    .then(fsSizeData => {
-      fsSize = fsSizeData;
-      ++ready;
-      send();
-    });
+	si.cpuCurrentspeed().then(cpuSpeed => {
+		dynamic['cpuSpeed'] = cpuSpeed;
+		send();
+	});
 
-  si.mem()
-    .then(memData => {
-      mem = memData;
-      ++ready;
-      send();
-    });
+	si.fullLoad().then(cpuFullLoad => {
+		dynamic['fullLoad'] = cpuFullLoad;
+		send();
+	});
 
-  si.processes()
-    .then(processesData => {
-      processes = processesData;
-      ++ready;
-      send();
-    });
+	si.mem().then(mem => {
+		dynamic['mem'] = mem;
+		send();
+	});
 
-  function send() {
-    if(ready === 6) {
-      io.emit('dynamic', {
-        curr: currTime,
-        uptime: si.time().uptime,
-        cpuSpeedInfo: cpuSpeed,
-        cpuLoadInfo: cpuLoad,
-        cpuFullLoadInfo: fullLoad,
-        memInfo: mem
-      });
-      setTimeout(dynamic, 1000);
-    }
-  }
-}
-dynamic();
+	si.fsSize().then(fsSize => {
+		dynamic['fsSize'] = fsSize;
+		send();
+	});
+
+	si.processes().then(processes => {
+		dynamic['processes'] = processes;
+		send();
+	});
+
+	function send() {
+		if (++ready < 6) { return; }
+
+		io.emit('heartbeat', dynamic);
+		setTimeout(heartbeat, 1000);
+	}
+})();
 
 io.on('disconnect', function() {
   --clients;
