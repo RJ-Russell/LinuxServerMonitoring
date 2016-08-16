@@ -54,7 +54,9 @@ function chartTemplate(container, chart, title, data) {
         load: function() {
           chart = $('#'+container).highcharts();
         }
-      }
+      },
+      width: null,
+      height: 250
     },
     credits: { enabled: false },
     title: { text: '' },
