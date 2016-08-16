@@ -32,17 +32,19 @@ $(function() {
         ' Blocked: ' + dynamic.proc.blocked
     );
     // CPU Information
-    $('#cpuLoad').html('Avg Load: ' + dynamic.cpuLoad.avgload +
-      ' Current Load: ' + dynamic.cpuLoad.currentload +
-      ' Full Load: ' + (dynamic.fullLoad.fullload).toFixed(2));
+    var one = dynamic.os[0].toFixed(2);
+    var five = dynamic.os[1].toFixed(2);
+    var fteen = dynamic.os[2].toFixed(2);
+    $('#one').html('1-Min: ' + one);
+    $('#five').html('5 Min: ' + five);
+    $('#fteen').html('15 Min: ' + fteen);
 
-    addToCpuLoadChart(dynamic.currTime, dynamic.cpuLoad.avgload,
-      dynamic.cpuLoad.currentload,
-      dynamic.fullLoad.fullload);
+    addToCpuLoadChart(dynamic.currTime, parseFloat(one),
+      parseFloat(five), parseFloat(fteen));
 
-    $('#cpuSpeed').html('Min: ' + dynamic.cpuSpeed.min +
-      ' Avg: ' + dynamic.cpuSpeed.avg + ' Max: ' + dynamic.cpuSpeed.max
-    );
+    $('#spdMin').html('Min: ' + dynamic.cpuSpeed.min);
+    $('#spdMax').html('Max: ' + dynamic.cpuSpeed.max);
+    $('#spdAvg').html('Avg: ' + dynamic.cpuSpeed.avg);
 
     addToCpuSpeedChart(dynamic.currTime, dynamic.cpuSpeed.min,
       dynamic.cpuSpeed.avg, dynamic.cpuSpeed.max);
@@ -51,7 +53,8 @@ $(function() {
     $('#mem').html(
       'Total: ' + filesize(dynamic.mem.total) +
         ' free: ' + filesize(dynamic.mem.free) +
-        ' used: ' + filesize(dynamic.mem.used) + ' active: ' + dynamic.mem.active +
+        ' used: ' + filesize(dynamic.mem.used) +
+        ' active: ' + dynamic.mem.active +
         ' buffcache: ' + dynamic.mem.buffcache +
         ' available: ' + dynamic.mem.available +
         ' swaptotal: ' + dynamic.mem.swaptotal +

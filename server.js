@@ -2,8 +2,8 @@
 
 var express = require('express');
 var socketio = require('socket.io');
+var osmod = require('os');
 var si = require('systeminformation');
-var async = require('async');
 
 var server = express();
 server.use('/', express.static(__dirname + '/'));
@@ -40,7 +40,7 @@ io.on('connection', function(socket) {
 });
 
 (function heartbeat() {
-	var dynamic = {}, ready = 0;
+  var dynamic = {}, ready = 0;
 
 	if (clients <= 0) {
 		setTimeout(heartbeat, 1000);
@@ -50,18 +50,10 @@ io.on('connection', function(socket) {
   dynamic['currTime'] = si.time().current;
   dynamic['uptime'] = si.time().uptime;
 
-	si.currentLoad().then(cpuLoad => {
-		dynamic['cpuLoad'] = cpuLoad;
-		send();
-	});
+  dynamic['os'] = osmod.loadavg();
 
 	si.cpuCurrentspeed().then(cpuSpeed => {
 		dynamic['cpuSpeed'] = cpuSpeed;
-		send();
-	});
-
-	si.fullLoad().then(cpuFullLoad => {
-		dynamic['fullLoad'] = cpuFullLoad;
 		send();
 	});
 
@@ -81,7 +73,7 @@ io.on('connection', function(socket) {
 	});
 
 	function send() {
-		if (++ready < 6) { return; }
+		if (++ready < 4) { return; }
 
 		io.emit('heartbeat', dynamic);
 		setTimeout(heartbeat, 1000);

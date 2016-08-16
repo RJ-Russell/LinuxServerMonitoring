@@ -24,7 +24,7 @@
       <div>System Information</div>
       <div class='sub-header' id='uptime'></div>
 
-      <div class='jumbotron'>
+      <div class='jumbotron' id='jumbo-sys'>
         <div class='container'>
 
           <div class='row'>
@@ -61,21 +61,27 @@
       <div>CPU Information</div>
       <!-- CPU Load -->
       <div class='jumbotron'>
-        <div class='sub-header'>
-          <div>CPU Load</div>
-          <div id='cpuLoad'></div>
-        </div>
         <div class='container'>
+          <div class='sub-header'>
+            <div>CPU Load</div>
+            <div class='row'>
+              <div class='col-sm-4' id='one'></div>
+              <div class='col-sm-4' id='five'></div>
+              <div class='col-sm-4' id='fteen'></div>
+            </div>
+          </div>
           <div class='row'>
             <div id='cpuLoad-container'></div>
           </div>
-        </div>
-        <!-- CPU Speed -->
-        <div class='sub-header'>
-          <div>CPU Speed</div>
-          <div id='cpuSpeed'></div>
-        </div>
-        <div class='container'>
+          <!-- CPU Speed -->
+          <div class='sub-header'>
+            <div>CPU Speed</div>
+            <div class='row'>
+              <div class='col-sm-4' id='spdMin'></div>
+              <div class='col-sm-4' id='spdMax'></div>
+              <div class='col-sm-4' id='spdAvg'></div>
+            </div>
+          </div>
           <div class='row'>
             <div id='cpuSpeed-container'></div>
           </div>
@@ -133,7 +139,7 @@
 
     <!-- My Scripts -->
     <script type='text/javascript' src='global.js'></script>
-    <script type='text/javascript' src='dark-unica-theme.js'></script>
+    <script type='text/javascript' src='gray-theme.js'></script>
     <script type='text/javascript' src='cpuCharts.js'></script>
     <script type='text/javascript' src='index.js'></script>
 
