@@ -38,9 +38,8 @@ io.on('connection', function(socket) {
   });
 });
 
-setInterval(function() {
+function dynamic() {
   var currTime, cpuSpeed, cpuLoad, fullLoad, fsSize, mem, processes, ready = 0;
-  if(clients <= 0) { return; }
   currTime = si.time().current;
 
   si.cpuCurrentspeed()
@@ -95,10 +94,11 @@ setInterval(function() {
         cpuFullLoadInfo: fullLoad,
         memInfo: mem
       });
+      setTimeout(dynamic, 1000);
     }
   }
-
-}, 1000);
+}
+dynamic();
 
 io.on('disconnect', function() {
   --clients;
