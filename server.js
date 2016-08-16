@@ -76,7 +76,7 @@ io.on('connection', function(socket) {
 	});
 
 	si.processes().then(processes => {
-		dynamic['processes'] = processes;
+    dynamic['proc'] = processes;
 		send();
 	});
 

@@ -36,12 +36,28 @@
               <div class='sys-title'>CPU</div>
               <div class='sys-details' id='cpu'></div>
             </div>
+            <div class='col-sm-6'>
+              <div id='processes'></div>
+            </div>
           </div>
 
         </div>
       </div>
 
     </div>
+
+    <!-- START OF PROC SECTION -->
+    <div class='row main-sys-header'>
+      <div>Process Information</div>
+      <div class='sub-header' id='proc'></div>
+    </div>
+    <div class='jumbotron'>
+      <div class='container'>
+        <div class='row'>
+          <div id='proc-container'></div>
+        </div>
+      </div>
+    </div> <!-- END OF PROC SECTION -->
 
     <!-- START OF CPU SECTION -->
     <div class='row main-sys-header'>
@@ -74,19 +90,6 @@
       </div>
     </div> <!-- END OF CPU SECTION -->
 
-    <!-- START OF MEMORY SECTION -->
-    <div class='row main-sys-header'>
-      <div>Memory Information</div>
-      <div class='sub-header' id='mem'></div>
-    </div>
-    <div class='jumbotron'>
-      <div class='container'>
-        <div class='row'>
-          <div id='mem-container'></div>
-        </div>
-      </div>
-    </div> <!-- END OF MEMORY SECTION -->
-
     <!-- START OF FILE SECTION -->
     <div class='row main-sys-header'>
       <div>File Information</div>
@@ -99,6 +102,7 @@
         </div>
       </div>
     </div> <!-- END OF FILE SECTION -->
+
     <!-- External Libraries -->
     <script type='text/javascript'
       src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'>

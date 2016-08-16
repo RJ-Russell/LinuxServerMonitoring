@@ -25,8 +25,12 @@ $(function() {
   socket.on('heartbeat', function(dynamic) {
     // Current time and Uptime
     $('#currTime').html(formatCurrTime(dynamic.currTime));
-    $('#uptime').empty().html("Uptime: " + formatUptime(dynamic.uptime));
-
+    $('#uptime').html('Uptime: ' + formatUptime(dynamic.uptime));
+    $('#proc').html(
+      'All: ' + dynamic.proc.all +
+        'Running: ' + dynamic.proc.running +
+        ' Blocked: ' + dynamic.proc.blocked
+    );
     // CPU Information
     $('#cpuLoad').html('Avg Load: ' + dynamic.cpuLoad.avgload +
       ' Current Load: ' + dynamic.cpuLoad.currentload +
@@ -53,6 +57,14 @@ $(function() {
         ' swaptotal: ' + dynamic.mem.swaptotal +
         ' swapused: ' + dynamic.mem.swapused +
         ' swapfree: ' + dynamic.mem.swapfree
+    );
+
+    $('#fsSize').html(
+      'Name of File System: ' + dynamic.fsSize[0].fs +
+        ' Size (Bytes): ' + dynamic.fsSize[0].size +
+        ' Used (Bytes): ' + dynamic.fsSize[0].used +
+        ' Use (%): ' + dynamic.fsSize[0].use +
+        ' Mount Point: ' + dynamic.fsSize[0].mount
     );
   });
 });
