@@ -28,7 +28,7 @@ $(function() {
     $('#uptime').html('Uptime: ' + formatUptime(dynamic.uptime));
     $('#proc').html(
       'All: ' + dynamic.proc.all +
-        'Running: ' + dynamic.proc.running +
+        ' Running: ' + dynamic.proc.running +
         ' Blocked: ' + dynamic.proc.blocked
     );
     // CPU Information

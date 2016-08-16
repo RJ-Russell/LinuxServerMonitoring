@@ -28,6 +28,11 @@
   width: 100%;
 }
 
+.sub-header {
+  background-color: #222222;
+  color: #9D9D9D;
+}
+
 .sys-details {
   margin-left: 60px;
 }
@@ -41,6 +46,7 @@
 /** Id's **/
 #host {
   font-size: 40px;
+  margin-bottom: 0;
 }
 
 #cpuLoad-container {
@@ -50,9 +56,4 @@
 #currTime {
   background-color: #BCB293;
   margin-top: 0;
-}
-
-.sub-header {
-  background-color: #222222;
-  color: #9D9D9D;
 }
