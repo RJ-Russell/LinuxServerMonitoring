@@ -19,25 +19,25 @@ var cpuLoadChart = 0;
   }];
   // Create cpuLoad chart
   cpuLoadChart = chartTemplate('cpuLoad-container', cpuLoadChart,
-    'CPU Load', 0.2, initLoadData);
+    'CPU Load', 0.1, initLoadData);
 
-    // Init cpuSpeed data to be passed into the chart template
-    var initSpeedData = [{
-      id: 'spdMin',
-      name: 'Min. Speed',
-      data: initialData()
-    }, {
-      id: 'spdAvg',
-      name: 'Max. Speed',
-      data: initialData()
-    }, {
-      id: 'spdMax',
-      name: 'Avg. Speed',
-      data: initialData()
-    }];
-    // Create cpuSpeed chart
-    cpuSpeedChart = chartTemplate('cpuSpeed-container', cpuSpeedChart,
-      'CPU Speed (MHz)', 1, initSpeedData);
+  // Init cpuSpeed data to be passed into the chart template
+  var initSpeedData = [{
+    id: 'spdMin',
+    name: 'Min. Speed',
+    data: initialData()
+  }, {
+    id: 'spdMax',
+    name: 'Avg. Speed',
+    data: initialData()
+  }, {
+    id: 'spdAvg',
+    name: 'Max. Speed',
+    data: initialData()
+  }];
+  // Create cpuSpeed chart
+  cpuSpeedChart = chartTemplate('cpuSpeed-container', cpuSpeedChart,
+    'CPU Speed (MHz)', 1, initSpeedData);
 })();
 
 // Template for CPU charts
@@ -79,10 +79,10 @@ function chartTemplate(container, chart, title, interval, data) {
 };
 
 // Add dynamic data points to cpuLoad chart
-function addToCpuLoadChart(currTime, avg, curr, full) {
-  cpuLoadChart.get('one').addPoint([currTime, avg], false, true);
-  cpuLoadChart.get('five').addPoint([currTime, curr], false, true);
-  cpuLoadChart.get('fteen').addPoint([currTime, full], true, true);
+function addToCpuLoadChart(currTime, one, five, fteen) {
+  cpuLoadChart.get('one').addPoint([currTime, one], false, true);
+  cpuLoadChart.get('five').addPoint([currTime, five], false, true);
+  cpuLoadChart.get('fteen').addPoint([currTime, fteen], true, true);
 }
 
 // Add dynamic data points to cpuSpeed chart

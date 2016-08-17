@@ -43,8 +43,8 @@ $(function() {
       parseFloat(five), parseFloat(fteen));
 
     $('#spdMin').html('Min: ' + dynamic.cpuSpeed.min);
-    $('#spdMax').html('Max: ' + dynamic.cpuSpeed.max);
     $('#spdAvg').html('Avg: ' + dynamic.cpuSpeed.avg);
+    $('#spdMax').html('Max: ' + dynamic.cpuSpeed.max);
 
     addToCpuSpeedChart(dynamic.currTime, dynamic.cpuSpeed.min,
       dynamic.cpuSpeed.avg, dynamic.cpuSpeed.max);
@@ -54,10 +54,10 @@ $(function() {
       'Total: ' + filesize(dynamic.mem.total) +
         ' free: ' + filesize(dynamic.mem.free) +
         ' used: ' + filesize(dynamic.mem.used) +
-        ' active: ' + dynamic.mem.active +
-        ' buffcache: ' + dynamic.mem.buffcache +
+        ' active: ' + filesize(dynamic.mem.active) +
+        '<br> buffcache: ' + dynamic.mem.buffcache +
         ' available: ' + dynamic.mem.available +
-        ' swaptotal: ' + dynamic.mem.swaptotal +
+        '<br> swaptotal: ' + dynamic.mem.swaptotal +
         ' swapused: ' + dynamic.mem.swapused +
         ' swapfree: ' + dynamic.mem.swapfree
     );
