@@ -53,11 +53,14 @@ $(function() {
     $('#memTotal').html('Total Memory:<br>' + filesize(dynamic.mem.total));
     $('#memFree').html('Free Memory:<br>' + filesize(dynamic.mem.free));
     $('#memUsed').html('Used Memory:<br>' + filesize(dynamic.mem.used));
-    updateRamGauge(dynamic.mem.total, dynamic.mem.free, dynamic.mem.used);
+    updateMemGauge('#ram-container', dynamic.mem.total,
+      dynamic.mem.free, dynamic.mem.used);
 
     $('#swapTotal').html('Swap Total:<br>' + filesize(dynamic.mem.swaptotal));
     $('#swapFree').html('Swap Free:<br>' + filesize(dynamic.mem.swapfree));
     $('#swapUsed').html('Swap Used:<br>' + filesize(dynamic.mem.swapused));
+    updateMemGauge('#swap-container', dynamic.mem.swaptotal,
+      dynamic.mem.swapfree, dynamic.mem.swapused);
 
     $('#cacheSize').html('Buffer Cache Size:<br>' + filesize(dynamic.mem.buffcache));
     $('#cacheAvail').html('Cache Mem. Available:<br>' + filesize(dynamic.mem.available));
