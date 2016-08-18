@@ -4,11 +4,12 @@
     chart: {
       type: 'solidgauge',
     },
-
+    credits: {
+      enabled: false
+    },
     title: {
       text: ''
     },
-
     tooltip: {
       borderWidth: 0,
       backgroundColor: 'none',
@@ -25,7 +26,6 @@
         };
       }
     },
-
     pane: {
       startAngle: 0,
       endAngle: 360,
@@ -41,14 +41,12 @@
         borderWidth: 0
       }]
     },
-
     yAxis: {
       min: 0,
       max: 100,
       lineWidth: 0,
       tickPositions: []
     },
-
     plotOptions: {
       solidgauge: {
         borderWidth: '34px',
