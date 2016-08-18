@@ -53,7 +53,7 @@ $(function() {
     $('#memTotal').html('Total Memory:<br>' + filesize(dynamic.mem.total));
     $('#memFree').html('Free Memory:<br>' + filesize(dynamic.mem.free));
     $('#memUsed').html('Used Memory:<br>' + filesize(dynamic.mem.used));
-    $('#memActive').html('Active Memory:<br>' + filesize(dynamic.mem.active));
+    updateRamGauge(dynamic.mem.total, dynamic.mem.free, dynamic.mem.used);
 
     $('#swapTotal').html('Swap Total:<br>' + filesize(dynamic.mem.swaptotal));
     $('#swapFree').html('Swap Free:<br>' + filesize(dynamic.mem.swapfree));

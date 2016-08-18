@@ -1,160 +1,95 @@
 (function () {
+    var memoryGaugeOptions = {
 
-  var gaugeOptions = {
-    chart: {
-      type: 'solidgauge'
-    },
-    title: null,
-    pane: {
-      center: ['50%', '85%'],
-      size: '140%',
-      startAngle: -90,
-      endAngle: 90,
-      background: {
-        innerRadius: '60%',
-        outerRadius: '100%',
-        shape: 'arc'
-      }
-    },
-    tooltip: {
-      enabled: false
-    },
-    // the value axis
-    yAxis: {
-      stops: [
-        [0.1, '#55BF3B'], // green
-        [0.5, '#DDDF0D'], // yellow
-        [0.9, '#DF5353'] // red
-      ],
-      lineWidth: 0,
-      minorTickInterval: null,
-      tickAmount: 2,
-      title: {
-        y: -70
-      },
-      labels: {
-        y: 16
-      }
-    },
-    plotOptions: {
-      solidgauge: {
-        dataLabels: {
-          y: 5,
-          borderWidth: 0,
-          useHTML: true
+        chart: {
+            type: 'solidgauge',
+        },
+
+        title: {
+            text: ''
+        },
+
+        tooltip: {
+            borderWidth: 0,
+            backgroundColor: 'none',
+            shadow: false,
+            style: {
+                fontSize: '16px'
+            },
+            pointFormat: `{series.name}<br><span style="font-size:2em;
+            color: {point.color}; font-weight: bold">{point.y}%</span>`,
+            positioner: function (labelWidth, labelHeight) {
+                return {
+                    x: 210 - labelWidth / 2,
+                    y: 160
+                };
+            }
+        },
+
+        pane: {
+            startAngle: 0,
+            endAngle: 360,
+            background: [{ // Track for Free
+                outerRadius: '102%',
+                innerRadius: '78%',
+                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.3).get(),
+                borderWidth: 0
+            }, { // Track for Used
+                outerRadius: '77%',
+                innerRadius: '53%',
+                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
+                borderWidth: 0
+            }]
+        },
+
+        yAxis: {
+            min: 0,
+            max: 100,
+            lineWidth: 0,
+            tickPositions: []
+        },
+
+        plotOptions: {
+            solidgauge: {
+                borderWidth: '34px',
+                dataLabels: {
+                    enabled: false
+                },
+                linecap: 'square',
+                stickyTracking: false
+            }
         }
-      }
-    }
-  };
+    };
 
-  // RAM Gauge
-  $('#ram-container').highcharts(Highcharts.merge(gaugeOptions, {
-    yAxis: {
-      min: 0,
-      max: 200,
-      title: {
-        text: 'Speed'
-      }
-    },
-    credits: {
-      enabled: false
-    },
-
-    series: [{
-      name: 'Speed',
-      dataLabels: {
-        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-          ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white') + '">{y}</span><br/>' +
-          '<span style="font-size:12px;color:silver">km/h</span></div>'
-      },
-      tooltip: {
-        valueSuffix: ' km/h'
-      },
-      data: [80]
-    }]
-  }));
-
-  $('#bufCache-container').highcharts(Highcharts.merge(gaugeOptions, {
-    yAxis: {
-      min: 0,
-      max: 5,
-      title: {
-        text: 'RPM'
-      }
-    },
-
-    series: [{
-      name: 'RPM',
-      data: [1],
-      dataLabels: {
-        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-          ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white') + '">{y:.1f}</span><br/>' +
-          '<span style="font-size:12px;color:silver">* 1000 / min</span></div>'
-      },
-      tooltip: {
-        valueSuffix: ' revolutions/min'
-      }
-    }]
-
-  }));
-
-  $('#swap-container').highcharts(Highcharts.merge(gaugeOptions, {
-    yAxis: {
-      min: 0,
-      max: 5,
-      title: {
-        text: 'RPM'
-      }
-    },
-
-    series: [{
-      name: 'RPM',
-      data: [1],
-      dataLabels: {
-        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-          ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white') + '">{y:.1f}</span><br/>' +
-          '<span style="font-size:12px;color:silver">* 1000 / min</span></div>'
-      },
-      tooltip: {
-        valueSuffix: ' revolutions/min'
-      }
-    }]
-
-  }));
-  // Bring life to the dials
-  function updateRamGauge() {
-    // Speed
-    var chart = $('#container-speed').highcharts(),
-      point,
-      newVal,
-      inc;
-
-    if (chart) {
-      point = chart.series[0].points[0];
-      inc = Math.round((Math.random() - 0.5) * 100);
-      newVal = point.y + inc;
-
-      if (newVal < 0 || newVal > 200) {
-        newVal = point.y - inc;
-      }
-
-      point.update(newVal);
-    }
-  }
-
-  function updateBufCacheGauge() {
-    // RPM
-    var chart = $('#container-rpm').highcharts();
-    if (chart) {
-      point = chart.series[0].points[0];
-      inc = Math.random() - 0.5;
-      newVal = point.y + inc;
-
-      if (newVal < 0 || newVal > 5) {
-        newVal = point.y - inc;
-      }
-
-      point.update(newVal);
-    }
-  }
+    $('#ram-container').highcharts(Highcharts.merge(memoryGaugeOptions, {
+        series: [{
+            name: 'Free',
+            borderColor: Highcharts.getOptions().colors[0],
+            data: [{
+                color: Highcharts.getOptions().colors[0],
+                radius: '90%',
+                innerRadius: '90%',
+                y: 0
+            }]
+        }, {
+            name: 'Used',
+            borderColor: Highcharts.getOptions().colors[1],
+            data: [{
+                color: Highcharts.getOptions().colors[1],
+                radius: '65%',
+                innerRadius: '65%',
+                y: 0
+            }]
+        }]
+    }));
 })();
+
+function updateRamGauge(total, free, used) {
+  var newFree = (free/total) * 100;
+  var memFreeGauge = $('#ram-container').highcharts().series[0].points[0];
+  memFreeGauge.update(parseFloat(newFree.toFixed(2)));
+
+  var newUsed = (used/total) * 100;
+  var memUsedGauge = $('#ram-container').highcharts().series[1].points[0];
+  memUsedGauge.update(parseFloat(newUsed.toFixed(2)));
+}
