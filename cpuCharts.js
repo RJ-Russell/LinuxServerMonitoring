@@ -1,60 +1,16 @@
+var cpuLoadChart, cpuSpeedChart;
 
-var cpuSpeedChart = 0;
-var cpuLoadChart = 0;
+Highcharts.setOptions({
+  global: {
+    useUTC: false
+  }
+});
 
 (function() {
-  // Init cpuLoad data to be passed into the chart template
-  var initLoadData = [{
-    id: 'one',
-    name: '1-Min Avg',
-    data: initialData()
-  }, {
-    id: 'five',
-    name: '5-Min Avg',
-    data: initialData()
-  }, {
-    id: 'fteen',
-    name: '15-Min Avg',
-    data: initialData()
-  }];
-  // Create cpuLoad chart
-  cpuLoadChart = chartTemplate('cpuLoad-container', cpuLoadChart,
-    'CPU Load', 0.1, initLoadData);
-
-  // Init cpuSpeed data to be passed into the chart template
-  var initSpeedData = [{
-    id: 'spdMin',
-    name: 'Min. Speed',
-    data: initialData()
-  }, {
-    id: 'spdMax',
-    name: 'Avg. Speed',
-    data: initialData()
-  }, {
-    id: 'spdAvg',
-    name: 'Max. Speed',
-    data: initialData()
-  }];
-  // Create cpuSpeed chart
-  cpuSpeedChart = chartTemplate('cpuSpeed-container', cpuSpeedChart,
-    'CPU Speed (MHz)', 1, initSpeedData);
-})();
-
-// Template for CPU charts
-function chartTemplate(container, chart, title, interval, data) {
-  Highcharts.setOptions({
-    global: {
-      useUTC: false
-    }
-  });
-  $('#'+container).highcharts({
+  // Common options shared between charts.
+  var cpuChartOptions = {
     chart: {
       type: 'spline',
-      events: {
-        load: function() {
-          chart = $('#'+container).highcharts();
-        }
-      },
       width: null,
       height: 250
     },
@@ -65,18 +21,75 @@ function chartTemplate(container, chart, title, interval, data) {
       tickPixelInterval: 100
     },
     yAxis: {
-      title: { text: title },
-      tickInterval: interval,
       min: 0,
       max: null
     },
     tooltip: {
       xDateFormat: '%A, %b %e, %H:%M:%S'
+    }
+  };
+
+  // Create cpuLoad chart and merge common options in.
+  $('#cpuLoad-container').highcharts(Highcharts.merge(cpuChartOptions, {
+    chart: {
+      events: {
+        load: function() {
+          cpuLoadChart = $('#cpuLoad-container').highcharts();
+        }
+      }
     },
-    series: data
-  });
-  return chart;
-};
+    yAxis: {
+      tickInterval: 0.1,
+      title: {
+        text: 'CPU Load'
+      }
+    },
+    series: [{
+      id: 'one',
+      name: '1-Min Avg',
+      data: initialData()
+    }, {
+      id: 'five',
+      name: '5-Min Avg',
+      data: initialData()
+    }, {
+      id: 'fteen',
+      name: '15-Min Avg',
+      data: initialData()
+    }]
+  }));
+
+  // Create cpuSpeed chart and merge common options in.
+  $('#cpuSpeed-container').highcharts(Highcharts.merge(cpuChartOptions, {
+    chart: {
+      events: {
+        load: function() {
+          cpuSpeedChart = $('#cpuSpeed-container').highcharts();
+        }
+      }
+    },
+    yAxis: {
+      tickInterval: 1,
+      title: {
+        text: 'CPU Speed (MHz)'
+      }
+    },
+    series: [{
+      id: 'spdMin',
+      name: 'Min. Speed',
+      data: initialData()
+    }, {
+      id: 'spdMax',
+      name: 'Avg. Speed',
+      data: initialData()
+    }, {
+      id: 'spdAvg',
+      name: 'Max. Speed',
+      data: initialData()
+    }]
+  }));
+})();
+
 
 // Add dynamic data points to cpuLoad chart
 function addToCpuLoadChart(currTime, one, five, fteen) {
