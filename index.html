@@ -46,7 +46,6 @@
     <div class='row main-sys-header'>
       <div id='proc-header'>Process Information</div>
       <div class='sub-header' id='proc'></div>
-      <div id='proc-container'></div>
     </div>
     <!-- END OF PROC SECTION -->
 
@@ -95,7 +94,7 @@
               <div class='row'>
                 <div class='col-sm-4' id='memTotal'></div>
                 <div class='col-sm-4' id='memFree'></div>
-                <div class='col-sm-3' id='memUsed'></div>
+                <div class='col-sm-4' id='memUsed'></div>
               </div>
             </div>
           </div>
@@ -123,10 +122,17 @@
     <!-- START OF FILE SECTION -->
     <div class='row main-sys-header'>
       <div>File Information</div>
-      <div class='sub-header' id='fsSize'></div>
-    </div>
-    <div class='jumbotron'>
-      <div class='container'>
+      <div class='jumbotron'>
+        <div class='container'>
+          <div class='sub-header'>
+            <div class='row'>
+              <div class='col-sm-3 fs' id='fname'></div>
+              <div class='col-sm-3 fs' id='fmount'></div>
+              <div class='col-sm-3' id='fsize'></div>
+              <div class='col-sm-3' id='fused'></div>
+            </div>
+          </div>
+        </div>
         <div class='row'>
           <div id='fsSize-container'></div>
         </div>

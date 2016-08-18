@@ -25,26 +25,27 @@ $(function() {
   socket.on('heartbeat', function(dynamic) {
     // Current time and Uptime
     $('#currTime').html(formatCurrTime(dynamic.currTime));
-    $('#uptime').html('Uptime: ' + formatUptime(dynamic.uptime));
+    $('#uptime').html('Uptime:<br>' + formatUptime(dynamic.uptime));
     $('#proc').html(
       'All: ' + dynamic.proc.all +
         ' Running: ' + dynamic.proc.running +
         ' Blocked: ' + dynamic.proc.blocked
     );
+
     // CPU Information
     var one = dynamic.os[0].toFixed(2);
     var five = dynamic.os[1].toFixed(2);
     var fteen = dynamic.os[2].toFixed(2);
-    $('#one').html('1-Min: ' + one);
-    $('#five').html('5 Min: ' + five);
-    $('#fteen').html('15 Min: ' + fteen);
+    $('#one').html('1-Min:<br>' + one);
+    $('#five').html('5 Min:<br>' + five);
+    $('#fteen').html('15 Min:<br>' + fteen);
 
     addToCpuLoadChart(dynamic.currTime, parseFloat(one),
       parseFloat(five), parseFloat(fteen));
 
-    $('#spdMin').html('Min: ' + dynamic.cpuSpeed.min);
-    $('#spdAvg').html('Avg: ' + dynamic.cpuSpeed.avg);
-    $('#spdMax').html('Max: ' + dynamic.cpuSpeed.max);
+    $('#spdMin').html('Min:<br>' + dynamic.cpuSpeed.min);
+    $('#spdAvg').html('Avg:<br>' + dynamic.cpuSpeed.avg);
+    $('#spdMax').html('Max:<br>' + dynamic.cpuSpeed.max);
 
     addToCpuSpeedChart(dynamic.currTime, dynamic.cpuSpeed.min,
       dynamic.cpuSpeed.avg, dynamic.cpuSpeed.max);
@@ -66,11 +67,11 @@ $(function() {
     $('#cacheAvail').html('Cache Mem. Available:<br>' + filesize(dynamic.mem.available));
 
     $('#fsSize').html(
-      'Name of File System: ' + dynamic.fsSize[0].fs +
-        ' Size (Bytes): ' + dynamic.fsSize[0].size +
-        ' Used (Bytes): ' + dynamic.fsSize[0].used +
-        ' Use (%): ' + dynamic.fsSize[0].use +
-        ' Mount Point: ' + dynamic.fsSize[0].mount
+        ' Use (%): ' + dynamic.fsSize[0].use
     );
+    $('#fname').html('File System:<br>' + dynamic.fsSize[0].fs);
+    $('#fmount').html('Mount Point:<br>' + dynamic.fsSize[0].mount);
+    $('#fsize').html('Size:<br>' + filesize(dynamic.fsSize[0].size));
+    $('#fused').html('Used:<br>' + filesize(dynamic.fsSize[0].used));
   });
 });

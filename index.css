@@ -61,6 +61,8 @@
 }
 
 #proc {
+  background-color: #222222;
+  border: 4px solid #000000;
   margin-bottom: 30px;
 }
 
