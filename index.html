@@ -28,11 +28,11 @@
         <div class='container'>
 
           <div class='row'>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 sys'>
               <div class='sys-title'>Operating System</div>
               <div class='sys-details' id='os'></div>
             </div>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 sys'>
               <div class='sys-title'>CPU</div>
               <div class='sys-details' id='cpu'></div>
             </div>
@@ -89,12 +89,44 @@
       <div>Memory Information</div>
       <div class='jumbotron'>
         <div class='container'>
-          <div class='sub-header' id='mem'></div>
           <div class='row'>
-            <div class='gauge-parent-container'>
-              <div class='gauge-container' id='ram-container'></div>
-              <div class='gauge-container' id="bufCache-container"></div>
+            <div class='sub-header'>
+              <div>RAM Usage</div>
+              <div class='row'>
+                <div class='col-sm-3' id='memTotal'></div>
+                <div class='col-sm-3' id='memFree'></div>
+                <div class='col-sm-3' id='memUsed'></div>
+                <div class='col-sm-3' id='memActive'></div>
+              </div>
             </div>
+          </div>
+          <div class='row'>
+            <div class='gauge-container' id='ram-container'></div>
+          </div>
+          <div class='row'>
+            <div class='sub-header'>
+              <div>Swap Memory</div>
+              <div class='row'>
+                <div class='col-sm-4' id='swapTotal'></div>
+                <div class='col-sm-4' id='swapFree'></div>
+                <div class='col-sm-4' id='swapUsed'></div>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='gauge-container' id="bufCache-container"></div>
+          </div>
+          <div class='row'>
+            <div class='sub-header'>
+              <div>Buffer Cache</div>
+              <div class='row'>
+                <div class='col-sm-6' id='cacheSize'></div>
+                <div class='col-sm-6' id='cacheAvail'></div>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='gauge-container' id="swap-container"></div>
           </div>
         </div>
       </div>

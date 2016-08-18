@@ -50,17 +50,17 @@ $(function() {
       dynamic.cpuSpeed.avg, dynamic.cpuSpeed.max);
 
     // Memory Information
-    $('#mem').html(
-      'Total: ' + filesize(dynamic.mem.total) +
-        ' free: ' + filesize(dynamic.mem.free) +
-        ' used: ' + filesize(dynamic.mem.used) +
-        ' active: ' + filesize(dynamic.mem.active) +
-        '<br> buffcache: ' + dynamic.mem.buffcache +
-        ' available: ' + dynamic.mem.available +
-        '<br> swaptotal: ' + dynamic.mem.swaptotal +
-        ' swapused: ' + dynamic.mem.swapused +
-        ' swapfree: ' + dynamic.mem.swapfree
-    );
+    $('#memTotal').html('Total Memory:<br>' + filesize(dynamic.mem.total));
+    $('#memFree').html('Free Memory:<br>' + filesize(dynamic.mem.free));
+    $('#memUsed').html('Used Memory:<br>' + filesize(dynamic.mem.used));
+    $('#memActive').html('Active Memory:<br>' + filesize(dynamic.mem.active));
+
+    $('#swapTotal').html('Swap Total:<br>' + filesize(dynamic.mem.swaptotal));
+    $('#swapFree').html('Swap Free:<br>' + filesize(dynamic.mem.swapfree));
+    $('#swapUsed').html('Swap Used:<br>' + filesize(dynamic.mem.swapused));
+
+    $('#cacheSize').html('Buffer Cache Size:<br>' + filesize(dynamic.mem.buffcache));
+    $('#cacheAvail').html('Cache Mem. Available:<br>' + filesize(dynamic.mem.available));
 
     $('#fsSize').html(
       'Name of File System: ' + dynamic.fsSize[0].fs +

@@ -62,7 +62,6 @@
 
     series: [{
       name: 'Speed',
-      data: [80],
       dataLabels: {
         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
           ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white') + '">{y}</span><br/>' +
@@ -70,7 +69,8 @@
       },
       tooltip: {
         valueSuffix: ' km/h'
-      }
+      },
+      data: [80]
     }]
   }));
 
@@ -98,6 +98,29 @@
 
   }));
 
+  $('#swap-container').highcharts(Highcharts.merge(gaugeOptions, {
+    yAxis: {
+      min: 0,
+      max: 5,
+      title: {
+        text: 'RPM'
+      }
+    },
+
+    series: [{
+      name: 'RPM',
+      data: [1],
+      dataLabels: {
+        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+          ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white') + '">{y:.1f}</span><br/>' +
+          '<span style="font-size:12px;color:silver">* 1000 / min</span></div>'
+      },
+      tooltip: {
+        valueSuffix: ' revolutions/min'
+      }
+    }]
+
+  }));
   // Bring life to the dials
   function updateRamGauge() {
     // Speed
