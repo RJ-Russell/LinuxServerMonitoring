@@ -72,7 +72,7 @@ $(function() {
     $('#fname').html('File System:<br>' + dynamic.fsSize[0].fs);
     $('#fmount').html('Mount Point:<br>' + dynamic.fsSize[0].mount);
     $('#fsize').html('Size:<br>' + filesize(dynamic.fsSize[0].size));
-    $('#fused').html('Used:<br>' + filesize(dynamic.fsSize[0].used));
+    $('#ffree').html('Free:<br>' + filesize(dynamic.fsSize[0].size - dynamic.fsSize[0].used));
     updateDiskPie(dynamic.fsSize[0].use);
   });
 });
