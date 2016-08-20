@@ -8,14 +8,14 @@ $(function() {
         $('#user').append(' logged in at ' + static.userLogin);
       }
     }
-    $('#os').html(
+    $('#sys-os').html(
       static.osInfo.platform +
         '<br>' + static.osInfo.distro + ' ' + static.osInfo.release +
         ' ' + static.osInfo.codename +
         '<br>' + static.osInfo.kernel + ' ' + static.osInfo.arch + ' ' +
         static.osInfo.logofile
     );
-    $('#cpu').html(
+    $('#sys-cpu').html(
       static.cpuInfo.manufacturer + ' ' + static.cpuInfo.brand +
         '<br>Speed: ' + static.cpuInfo.speed + ' GHz<br>Cores: ' +
         static.cpuInfo.cores

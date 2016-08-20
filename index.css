@@ -1,5 +1,19 @@
 
 /** Classes **/
+body {
+  margin-top: 220px;
+}
+
+.custom-pills {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-pills > li > a:hover {
+  background-color: #9D9D9D;
+  color: #000000;
+}
+
 .gauge-container {
   width: 400px;
   margin: 0 auto;
@@ -16,15 +30,28 @@
   text-align: center;
 }
 
-.navbar-inverse {
-  border-radius: 0px;
-  margin-bottom: 0;
+.nav-link {
+  color: #9D9D9D;
+}
+
+.nav-link > .active {
+  border: 2px solid white;
+  background-color: #222222;
+}
+
+.navbar {
+  border-bottom: 4px solid #000000;
 }
 
 .navbar-text {
   font-size: 20px;
   text-align: center;
   width: 100%;
+}
+
+.section {
+  padding-top: 220px;
+  margin-top: -220px;
 }
 
 .sub-header {
@@ -47,7 +74,8 @@
 /** Id's **/
 #currTime {
   background-color: #BCB293;
-  margin-top: 0;
+  color: #000000;
+  margin: 0 auto;
 }
 
 #fsSize-container {

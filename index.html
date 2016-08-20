@@ -6,21 +6,39 @@
 
     <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=0' />
 
-
+    <!-- Use bootstrap css and my custom css file. -->
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' />
     <link rel='stylesheet' type='text/css' href='index.css' />
   </head>
   <body>
     <!-- Navbar: Host and User -->
-    <nav class='navbar navbar-inverse'>
-      <div class="nav-header">
-        <div class='navbar-text' id='host'></div>
-        <div class='navbar-text' id='user'></div>
+    <nav class='navbar navbar-fixed-top navbar-inverse'>
+      <div class='navbar-text' id='host'></div>
+      <div class='navbar-text' id='user'></div>
+      <div class='navbar-text' id='currTime'></div>
+      <div class='col-md-12 text-center'>
+        <ul class='nav nav-pills custom-pills'>
+          <li class='nav-item'>
+            <a class='nav nav-link' href='#system'>System</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav nav-link' href='#process'>Process</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav nav-link' href='#cpu'>CPU</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav nav-link' href='#memory'>Memory</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav nav-link' href='#file'>File</a>
+          </li>
+        </ul>
       </div>
     </nav>
 
-    <div class='row main-sys-header'>
-      <div class='navbar-text' id='currTime'></div>
+    <!-- OS AND CPU SECTION -->
+    <div class='row main-sys-header section' id='system'>
       <div>System Information</div>
       <div class='sub-header' id='uptime'></div>
 
@@ -30,27 +48,27 @@
           <div class='row'>
             <div class='col-sm-6 sys'>
               <div class='sys-title'>Operating System</div>
-              <div class='sys-details' id='os'></div>
+              <div class='sys-details' id='sys-os'></div>
             </div>
             <div class='col-sm-6 sys'>
               <div class='sys-title'>CPU</div>
-              <div class='sys-details' id='cpu'></div>
+              <div class='sys-details' id='sys-cpu'></div>
             </div>
           </div>
 
         </div>
       </div>
     </div>
-
+    <!-- END OF OS AND CPU SECTION -->
     <!-- START OF PROC SECTION -->
-    <div class='row main-sys-header'>
+    <div class='row main-sys-header section' id='process'>
       <div id='proc-header'>Process Information</div>
       <div class='sub-header' id='proc'></div>
     </div>
     <!-- END OF PROC SECTION -->
 
     <!-- START OF CPU SECTION -->
-    <div class='row main-sys-header'>
+    <div class='row main-sys-header section' id='cpu'>
       <div>CPU Information</div>
       <!-- CPU Load -->
       <div class='jumbotron'>
@@ -84,7 +102,7 @@
     <!-- END OF CPU SECTION -->
 
     <!-- START OF MEM SECTION -->
-    <div class='row main-sys-header'>
+    <div class='row main-sys-header section' id='memory'>
       <div>Memory Information</div>
       <div class='jumbotron'>
         <div class='container'>
@@ -101,6 +119,7 @@
           <div class='row'>
             <div class='gauge-container' id='ram-container'></div>
           </div>
+          <!-- SWAP Mem -->
           <div class='row'>
             <div class='sub-header'>
               <div>Swap Memory</div>
@@ -120,7 +139,7 @@
     <!-- END OF MEM SECTION -->
 
     <!-- START OF FILE SECTION -->
-    <div class='row main-sys-header'>
+    <div class='row main-sys-header section' id='file'>
       <div>File Information</div>
       <div class='jumbotron'>
         <div class='container'>
@@ -167,7 +186,7 @@
     <script type='text/javascript' src='gray-theme.js'></script>
     <script type='text/javascript' src='cpuCharts.js'></script>
     <script type='text/javascript' src='memGauges.js'></script>
-    <script type='text/javascript' src='fileChart.js'></script>
+    <script type='text/javascript' src='fileSizeChart.js'></script>
     <script type='text/javascript' src='index.js'></script>
 
   </body>
