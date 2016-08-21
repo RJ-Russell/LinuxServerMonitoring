@@ -1,4 +1,13 @@
+/**
+ * Copyright (C) 2015 RJ Russell
+ *
+ * memGauges.js: Creates the memory gauges for used and free RAM
+ *  and for used and free swap.
+ *
+ **/
+
 (function () {
+  // Common options to be shared between the gauges.
   var memoryGaugeOptions = {
 
     chart: {
@@ -59,6 +68,7 @@
     }
   };
 
+  // Builds the RAM gauge.
   $('#ram-container').highcharts(Highcharts.merge(memoryGaugeOptions, {
     series: [{
       name: 'Free',
@@ -81,6 +91,7 @@
     }]
   }));
 
+  // Builds the swap mem guage.
   $('#swap-container').highcharts(Highcharts.merge(memoryGaugeOptions, {
     series: [{
       name: 'Free',
@@ -104,6 +115,8 @@
   }));
 })();
 
+// dynamically updates whichever gauge is passed in with the
+// associated values.
 function updateMemGauge(container, total, free, used) {
   var newFree = (free/total) * 100;
   var memFreeGauge = $(container).highcharts().series[0].points[0];

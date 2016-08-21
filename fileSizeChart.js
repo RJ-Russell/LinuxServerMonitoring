@@ -1,5 +1,12 @@
+/**
+ * Copyright (C) 2015 RJ Russell
+ *
+ * fileSizeChart.js: Creates the pie chart for used and free disk space.
+ *
+ **/
+
 (function() {
-  // Build the chart
+  // Set the chart options and build the pie chart.
   $('#fsSize-container').highcharts({
     chart: {
       plotBackgroundColor: null,
@@ -36,6 +43,7 @@
   });
 })();
 
+// Dynamically updates the chart.
 function updateDiskPie(usedPercent) {
   var freePercent = 100 - usedPercent;
 

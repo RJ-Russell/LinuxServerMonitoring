@@ -1,6 +1,14 @@
+/**
+ * Copyright (C) 2015 RJ Russell
+ *
+ * cpuCharts.js: Creates the spline charts for cpu load and for cpu speed.
+ *
+ **/
+
 var cpuLoadChart, cpuSpeedChart;
 
 Highcharts.setOptions({
+  // Don't want UTC time.
   global: {
     useUTC: false
   }
@@ -104,3 +112,19 @@ function addToCpuSpeedChart(currTime, min, avg, max) {
   cpuSpeedChart.get('spdAvg').addPoint([currTime, avg], false, true);
   cpuSpeedChart.get('spdMax').addPoint([currTime, max], true, true);
 }
+
+// generate some points to render before real samples arrive from feed
+// Returns an array containing the generated data.
+function initialData() {
+  var data = [],
+    time = (new Date()).getTime(),
+    i;
+  // 20 samples, starting 19 ms ago up to present time when feed starts plotting
+  for (i = -19; i <= 0; i++) {
+    data.push({
+      x: time + (i * 1000),
+      y: 0
+    });
+  }
+  return data;
+};

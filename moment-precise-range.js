@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2014 Rob Dawson
+ * MIT License (MIT)
+ *
+ **/
+
 if (typeof moment === "undefined" && require) {
     moment = require('moment');
 }
