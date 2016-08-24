@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2015 RJ Russell
+ * Copyright (C) 2016 RJ Russell
+ * MIT License (MIT)
  *
  * memGauges.js: Creates the memory gauges for used and free RAM
  *  and for used and free swap.

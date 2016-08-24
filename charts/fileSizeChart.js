@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2015 RJ Russell
+ * Copyright (C) 2016 RJ Russell
+ * MIT License (MIT)
  *
  * fileSizeChart.js: Creates the pie chart for used and free disk space.
  *

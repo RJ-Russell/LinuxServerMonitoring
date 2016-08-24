@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2015 RJ Russell
+ * Copyright (C) 2016 RJ Russell
+ * MIT License (MIT)
  *
  * index.js: contains the main client side logic. Handles data sent from the
  * server, and handles updating graphs with any new data received.

@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2015 RJ Russell
+ * Copyright (C) 2016 RJ Russell
+ * MIT License (MIT)
  *
  * cpuCharts.js: Creates the spline charts for cpu load and for cpu speed.
  *

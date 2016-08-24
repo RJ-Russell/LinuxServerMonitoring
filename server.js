@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2015 RJ Russell
+ * Copyright (C) 2016 RJ Russell
+ * MIT License (MIT)
  *
  * server.js: Keeps track of num clients, collects and sends static
  * and dynamic data to the client.
