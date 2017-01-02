@@ -1,7 +1,7 @@
 # LinuxServerMonitoring
 Simple Web App to monitor basic system information.
 
-This program assumes that node and npm are installed.
+This program assumes that node and npm are installed and that a web server has been set up and properly configured.
 
 ## Installation
 1. Clone the repo and cd into directory.
